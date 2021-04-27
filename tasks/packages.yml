@@ -6,8 +6,14 @@
     - neofetch
     - tmux
 
-- name: Configure tmux
+- name: Configure tmux local
   ansible.builtin.copy:
     src: files/.tmux.conf
     dest: /home/{{ username }}/.tmux.conf
+    backup: yes
+
+- name: Configure tmux remote
+  ansible.builtin.copy:
+    src: files/.tmux.remote.conf
+    dest: /home/{{ username }}/.tmux.remote.conf
     backup: yes
