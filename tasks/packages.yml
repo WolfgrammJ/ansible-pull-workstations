@@ -5,6 +5,7 @@
     - mc
     - neofetch
     - tmux
+    - zsh
 
 - name: Configure tmux local
   ansible.builtin.copy:

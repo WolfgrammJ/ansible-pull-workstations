@@ -11,3 +11,4 @@
     - include: tasks/users.yml
     - include: tasks/packages.yml
     - include: tasks/cron_workstation.yml
+    - include: tasks/oh-my-zsh.yml
