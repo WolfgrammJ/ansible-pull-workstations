@@ -4,3 +4,10 @@
     - htop
     - mc
     - neofetch
+    - tmux
+
+- name: Configure tmux
+  ansible.builtin.copy:
+    src: files/.tmux.conf
+    dest: /home/{{ username }}/.tmux.conf
+    backup: yes
