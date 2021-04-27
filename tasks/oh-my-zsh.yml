@@ -1,6 +1,6 @@
 - name: make zsh default shell
   ansible.builtin.user:
-    name: {{ username }}
+    name: "{{ username }}"
     shell: /user/bin/zsh
 
 - name: Install Oh-my-zsh
