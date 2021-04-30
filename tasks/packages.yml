@@ -6,6 +6,7 @@
     - neofetch
     - tmux
     - zsh
+    - remmina
 
 - name: Configure tmux local
   ansible.builtin.copy:
@@ -18,3 +19,9 @@
     src: files/.tmux.remote.conf
     dest: /home/{{ username }}/.tmux.remote.conf
     backup: yes
+
+- name: Clone tmux plugin-manager git-repository
+  become_user: {{ username }}
+  ansible.builtin.git:
+    repo: https://github.com/tmux-plugins/tpm
+    dest: ~/.tmux/plugins/tpm
