@@ -21,7 +21,7 @@
     backup: yes
 
 - name: Clone tmux plugin-manager git-repository
-  become_user: {{ username }}
+  become_user: "{{ username }}"
   ansible.builtin.git:
     repo: https://github.com/tmux-plugins/tpm
     dest: ~/.tmux/plugins/tpm
