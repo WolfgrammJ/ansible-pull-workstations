@@ -4,7 +4,7 @@
     shell: "/usr/bin/zsh"
 
 - name: Check if directory "~/.oh-my-zsh" exists
-  become: "{{ username }}"
+  become_user: "{{ username }}"
   stat:
     path: ~/.oh-my-zsh
   register: omz
@@ -13,4 +13,4 @@
 - name: Install Oh-my-zsh
   become_user: "{{ username }}"
   command: sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-  when: omz.stat.exists == true
+  when: not omz.stat.exists
