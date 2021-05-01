@@ -3,6 +3,13 @@
     name: "{{ username }}"
     shell: "/usr/bin/zsh"
 
+- name: Check if directory "~/.oh-my-zsh" exists
+  become: "{{ username }}"
+  stat: path=~/.oh-my-zsh
+  register: omz
+  when: omz.stat.isdir is defined and omz.stat.isdir
+
 - name: Install Oh-my-zsh
   become_user: "{{ username }}"
-  script: scripts/oh-my-zsh.sh
+  command: sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+  when: not p.stat.exists
