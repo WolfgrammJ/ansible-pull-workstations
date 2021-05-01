@@ -12,4 +12,4 @@
 - name: Install Oh-my-zsh
   become_user: "{{ username }}"
   command: sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-  when: not p.stat.exists
+  when: not omz.stat.exists
