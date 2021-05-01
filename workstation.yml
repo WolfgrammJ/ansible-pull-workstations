@@ -14,3 +14,4 @@
     - include: tasks/packages.yml
     - include: tasks/cron_workstation.yml
     - include: tasks/oh-my-zsh.yml
+    - include: tasks/gnome.yml
