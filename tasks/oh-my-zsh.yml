@@ -6,6 +6,5 @@
 - name: Install Oh-my-zsh
   become_user: "{{ username }}"
   raw: sh $(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)
-  executable: /usr/bin/sh
   args:
-    warn: no
+    executable: /usr/bin/sh
