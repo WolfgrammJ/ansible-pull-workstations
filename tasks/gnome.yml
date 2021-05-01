@@ -1,2 +1,4 @@
 - name: Install Gnome Teaks
-  apt: gnome-tweaks
+  apt:
+    name: gnome-tweaks
+    state: present
