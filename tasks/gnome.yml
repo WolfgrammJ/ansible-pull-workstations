@@ -1,0 +1,2 @@
+- name: Install Gnome Teaks
+  apt: gnome-tweaks
