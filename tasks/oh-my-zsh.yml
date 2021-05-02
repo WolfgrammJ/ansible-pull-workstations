@@ -21,3 +21,34 @@
   become_user: "{{ username }}"
   shell: ~/install-oh-my-zsh.sh
 #  when: not omz.stat.exists
+
+- name: Delete install-script for oh-my-zsh
+  become_user: "{{ username }}"
+  ansible.builtin.file:
+    path: ~/install-oh-my-zsh.sh
+    state: absent
+
+- name: Clone git repo "zsh-autosuggestions"
+  become_user: "{{ username }}"
+  ansible.builtin.git:
+    repo: https://github.com/zsh-users/zsh-autosuggestions
+    dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+
+- name: Clone git repo "zsh-syntax-highlighting"
+  become_user: "{{ username }}"
+  ansible.builtin.git:
+    repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+    dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+
+- name: Install requirements for autojump
+  apt:
+    name: pyhton pyhton3
+    state: present
+
+- name: Clone git repo "autojump"
+  become_user: "{{ username }}"
+  ansible.builtin.git:
+    repo: http://github.com/wting/autojump.git
+    dest: ~/
+
+
