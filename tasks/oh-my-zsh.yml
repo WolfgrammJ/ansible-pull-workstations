@@ -69,4 +69,5 @@
   ansible.builtin.lineinfile:
     path: ~/.zshrc
     regexp: '^[[ -s /home/{{ username }}/.autojump'
-    line: '[[ -s /home/jens/.autojump/etc/profile.d/autojump.sh ]] && source /home/jens/.autojump/etc/profile.d/autojump.sh'
+    line: test
+#    line: '[[ -s /home/jens/.autojump/etc/profile.d/autojump.sh ]] && source /home/jens/.autojump/etc/profile.d/autojump.sh'
