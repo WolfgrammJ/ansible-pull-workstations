@@ -12,5 +12,5 @@
 
 - name: Install Oh-my-zsh
   become_user: "{{ username }}"
-  command: "https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh"
+  ansible.builtin.script: https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
 #  when: not omz.stat.exists
