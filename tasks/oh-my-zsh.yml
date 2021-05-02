@@ -52,4 +52,6 @@
     repo: http://github.com/wting/autojump.git
     dest: ~/autojump
 
-
+- name: Install autojump
+  become_user: "{{ username }}"
+  shell: ~/autojump/install.py
