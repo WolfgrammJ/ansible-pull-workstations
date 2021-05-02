@@ -54,4 +54,4 @@
 
 - name: Install autojump
   become_user: "{{ username }}"
-  shell: python ~/autojump/install.py
+  script: python ~/autojump/install.py
