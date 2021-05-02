@@ -59,7 +59,7 @@
     chdir: /home/{{ username }}/autojump
 
 - name: Delete autojump installation directory
-  become_user: {{ username }}
+  become_user: "{{ username }}"
   ansible.builtin.file:
     path: ~/autojump
     state: absent
