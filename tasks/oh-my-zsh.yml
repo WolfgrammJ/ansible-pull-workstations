@@ -50,6 +50,6 @@
   become_user: "{{ username }}"
   ansible.builtin.git:
     repo: http://github.com/wting/autojump.git
-    dest: ~/
+    dest: ~/autojump
 
 
