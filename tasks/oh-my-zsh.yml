@@ -44,7 +44,7 @@
     pkg:
     - pyhton
     - pyhton3
-  state: present
+    state: present
 
 - name: Clone git repo "autojump"
   become_user: "{{ username }}"
