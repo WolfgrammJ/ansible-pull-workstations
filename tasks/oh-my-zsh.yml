@@ -42,7 +42,10 @@
 
 - name: Install requirements for autojump
   apt:
-    name: pyhton pyhton3
+    name:
+      pkg:
+        - pyhton
+        - pyhton3
     state: present
 
 - name: Clone git repo "autojump"
