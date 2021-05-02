@@ -65,7 +65,8 @@
     state: absent
 
 - name: Add autojump to .zshrc
+  become_user: "{{ username }}"
   ansible.builtin.lineinfile:
-    path: /home/{{ username }}/.zshrc
+    path: ~/.zshrc
     regexp: '^[[ -s /home/{{ username }}/.autojump'
     line: '[[ -s /home/jens/.autojump/etc/profile.d/autojump.sh ]] && source /home/jens/.autojump/etc/profile.d/autojump.sh'
