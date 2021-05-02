@@ -57,3 +57,15 @@
   script: /home/{{ username }}/autojump/install.py
   args:
     chdir: /home/{{ username }}/autojump
+
+- name: Delete autojump installation directory
+  become_user: {{ username }}
+  ansible.builtin.file:
+    path: ~/autojump
+    state: absent
+
+- name: Add autojump to .zshrc
+  ansible.builtin.lineinfile:
+    path: /home/{{ username }}/.zshrc
+    regexp: '^[[ -s /home/{{ username }}/.autojump'
+    line: [[ -s /home/{{ username }}/.autojump/etc/profile.d/autojump.sh ]] && source /home/{{ username }}/.autojump/etc/profile.d/autojump.sh
