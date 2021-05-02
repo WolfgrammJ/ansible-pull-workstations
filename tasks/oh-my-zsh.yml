@@ -54,6 +54,6 @@
 
 - name: Install autojump
   become_user: "{{ username }}"
-  script: install.py
+  script: /home/{{ username }}/autojump/install.py
   args:
     chdir: /home/{{ username }}/autojump
