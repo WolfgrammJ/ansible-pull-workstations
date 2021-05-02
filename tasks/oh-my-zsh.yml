@@ -98,7 +98,7 @@
 - name: Disable powelevel10k configuration wizard in .zshrc
   become_user: "{{ username }}"
   ansible.builtin.lineinfile:
-    path: ~/.zshrc'
+    path: ~/.zshrc
     line: "POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true"
 
 - name: Set omz plugins in .zshrc
