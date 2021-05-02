@@ -18,5 +18,5 @@
 
 - name: Install Oh-my-zsh
   become_user: "{{ username }}"
-  ansible.builtin.script: ~/install-oh-my-zsh.sh
+  shell: ~/install-oh-my-zsh.sh
 #  when: not omz.stat.exists
