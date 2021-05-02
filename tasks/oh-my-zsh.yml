@@ -41,11 +41,10 @@
 
 - name: Install requirements for autojump
   apt:
-    name:
-      pkg:
-        - pyhton
-        - pyhton3
-    state: present
+    pkg:
+    - pyhton
+    - pyhton3
+  state: present
 
 - name: Clone git repo "autojump"
   become_user: "{{ username }}"
