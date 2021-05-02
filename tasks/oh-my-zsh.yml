@@ -64,12 +64,18 @@
     path: ~/autojump
     state: absent
 
-- name: Add autojump to .zshrc
+- name: Add autojump to .zshrc - part 1
   become_user: "{{ username }}"
   ansible.builtin.lineinfile:
     path: ~/.zshrc
     regexp: '^\[\[ -s /home/{{ username }}/.autojump'
     line: "[[ -s /home/{{ username }}/.autojump/etc/profile.d/autojump.sh ]] && source /home/{{ username }}/.autojump/etc/profile.d/autojump.sh"
+
+- name: Add autojump to .zshrc - part 2
+  become_user: "{{ username }}"
+  ansible.builtin.lineinfile:
+    path: ~/.zshrc
+    line: "autoload -U compinit && compinit -u"
 
 - name: Clone git repo "powerlevel10k"
   become_user: "{{ username }}"
