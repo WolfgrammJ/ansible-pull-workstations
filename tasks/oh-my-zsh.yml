@@ -113,4 +113,4 @@
   ansible.builtin.lineinfile:
     path: ~/.zshrc
     regexp: '^Set ZSH_THEME='
-    line: "Set ZSH_THEME=\"powerlevel10k/powerlevel10k\"
+    line: "Set ZSH_THEME=\"powerlevel10k/powerlevel10k\""
