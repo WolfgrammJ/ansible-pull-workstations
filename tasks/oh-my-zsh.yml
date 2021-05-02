@@ -68,6 +68,6 @@
   become_user: "{{ username }}"
   ansible.builtin.lineinfile:
     path: ~/.zshrc
-    regexp: "^[[ -s /home/{{ username }}/.autojump"
+    regexp: "^\[\[ -s /home/{{ username }}/.autojump"
     line: test
 #    line: '[[ -s /home/jens/.autojump/etc/profile.d/autojump.sh ]] && source /home/jens/.autojump/etc/profile.d/autojump.sh'
