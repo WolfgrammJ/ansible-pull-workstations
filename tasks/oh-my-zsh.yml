@@ -112,5 +112,5 @@
   become_user: "{{ username }}"
   ansible.builtin.lineinfile:
     path: ~/.zshrc
-    regexp: '^Set ZSH_THEME='
-    line: "Set ZSH_THEME=\"powerlevel10k/powerlevel10k\""
+    regexp: '^ZSH_THEME='
+    line: "ZSH_THEME=\"powerlevel10k/powerlevel10k\""
