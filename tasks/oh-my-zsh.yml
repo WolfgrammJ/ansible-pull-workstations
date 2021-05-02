@@ -53,5 +53,4 @@
     dest: ~/autojump
 
 - name: Install autojump
-  become_user: "{{ username }}"
-  script: python ~/autojump/install.py
+  script: /home/{{ username }}/autojump/install.py /home/{{ username }}/.autojump
