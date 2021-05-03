@@ -4,20 +4,36 @@
     - remmina
     - default-jre
 
+- name: Check if NetExtender is installed
+  stat:
+    path: /usr/bin/netExtenderGui
+  register: netextender
+
 - name: Download NetExtender version 10.2.824
   become_user: "{{ username }}"
   get_url:
     url: https://software.sonicwall.com/NetExtender/NetExtender.Linux-10.2.824.x86_64.tgz
     dest: /home/{{ username }}/Downloads
+  when: not nextextender.stats.exists
 
 - name: Extract NetExtender archive
   become_user: "{{ username }}"
   ansible.builtin.unarchive:
     src: /home/{{ username }}/Downloads/NetExtender.Linux-10.2.824.x86_64.tgz
     dest: /home/{{ username }}/
+  when: not nextextender.stats.exists
 
 - name: Install NetExtender
   become: yes
   shell: ./install
   args:
     chdir: /home/{{ username }}/netExtenderClient/
+    creates: /usr/bin/netExtenderGui
+  when: not nextextender.stats.exists
+
+- name: Remove NetExtender directory
+  ansible.builtin.file:
+    path: /home/{{ username }}/netExtenderClient/
+    state: absent
+
+
