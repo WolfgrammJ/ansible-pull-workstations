@@ -18,5 +18,5 @@
 - name: Install NetExtender
   become: yes
   ansible.builtin.command: ./install
-  args:
-    chdir: /home/{{ username }}/netExtenderClient/
+#  args:
+#    chdir: /home/{{ username }}/netExtenderClient/
