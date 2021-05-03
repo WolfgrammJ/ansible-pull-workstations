@@ -14,14 +14,14 @@
   get_url:
     url: https://software.sonicwall.com/NetExtender/NetExtender.Linux-10.2.824.x86_64.tgz
     dest: /home/{{ username }}/Downloads
-  when: not nextextender.stats.exists
+  when: not netextender.stats.exists
 
 - name: Extract NetExtender archive
   become_user: "{{ username }}"
   ansible.builtin.unarchive:
     src: /home/{{ username }}/Downloads/NetExtender.Linux-10.2.824.x86_64.tgz
     dest: /home/{{ username }}/
-  when: not nextextender.stats.exists
+  when: not netextender.stats.exists
 
 - name: Install NetExtender
   become: yes
@@ -29,7 +29,7 @@
   args:
     chdir: /home/{{ username }}/netExtenderClient/
     creates: /usr/bin/netExtenderGui
-  when: not nextextender.stats.exists
+  when: not netextender.stats.exists
 
 - name: Remove NetExtender directory
   ansible.builtin.file:
