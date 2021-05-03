@@ -13,9 +13,7 @@
   become_user: "{{ username }}"
   ansible.builtin.unarchive:
     src: /home/{{ username }}/Downloads/NetExtender.Linux-10.2.824.x86_64.tgz
-    dest: "/home/{{ username }}/"
+    dest: /home/{{ username }}/
 
 - name: Install NetExtender
-  ansible.builtin.command: install
-  args:
-    chdir: /home/jens/netExtenderClient/
+  ansible.builtin.command: /home/jens/netExtenderClient/install
