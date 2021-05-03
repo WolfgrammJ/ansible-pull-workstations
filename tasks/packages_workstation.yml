@@ -19,4 +19,4 @@
   become: yes
   ansible.builtin.script: ./install
   args:
-    chdir: "/home/{{ username }}/netExtenderClient"
+    chdir: /home/{{ username }}/netExtenderClient
