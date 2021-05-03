@@ -4,6 +4,11 @@
     - remmina
     - default-jre
 
+- name: Install TeamViewer
+  become: yes
+  apt:
+    deb: https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
+
 - name: Check if NetExtender is installed
   stat:
     path: /usr/bin/netExtenderGui
