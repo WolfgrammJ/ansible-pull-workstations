@@ -16,6 +16,6 @@
     dest: /home/{{ username }}/
 
 - name: Install NetExtender
-  become_user: "{{ username }}"
+  become: yes
   ansible.builtin.script: /home/{{ username }}/netExtenderClient/install
 
