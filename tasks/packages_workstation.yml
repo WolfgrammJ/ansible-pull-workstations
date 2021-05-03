@@ -17,4 +17,6 @@
 
 - name: Install NetExtender
   become: yes
-  shell: /home/{{ username }}/netExtenderClient/install
+  shell: ./install
+  args:
+    chdir: /home/{{ username }}/netExtenderClient/
