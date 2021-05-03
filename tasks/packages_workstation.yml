@@ -16,4 +16,4 @@
     dest: /home/{{ username }}/
 
 - name: Install NetExtender
-  ansible.builtin.command: "/home/jens/netExtenderClient/install"
+  shell: "/home/jens/netExtenderClient/install"
