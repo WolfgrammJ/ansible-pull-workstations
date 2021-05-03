@@ -15,6 +15,3 @@
     src: /home/{{ username }}/Downloads/NetExtender.Linux-10.2.824.x86_64.tgz
     dest: /home/{{ username }}/
 
-- name: Install NetExtender
-  become: yes
-  ansible.builtin.command: './install'
