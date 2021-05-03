@@ -1,0 +1,21 @@
+- name: Install workstation packages
+  apt:
+    pkg:
+    - remmina
+
+- name: Download NetExtender version 10.2.824
+  become_user: "{{ username }}"
+  get_url:
+    url: https://software.sonicwall.com/NetExtender/NetExtender.Linux-10.2.824.x86_64.tgz
+    dest: /home/{{ username }}/Downloads
+
+- name: Extract NetExtender archive
+  become_user: "{{ username }}"
+  ansible.builtin.unarchive:
+    src: /home/{{ username }}/Downloads/NetExtender.Linux-10.2.824.x86_64.tgz
+    dest: /home/{{ username }}/
+
+- name: Install NetExtender
+  become_user: "{{ username }}"
+  ansible.builtin.script: /home/{{ username }}/netExtenderClient/install
+
