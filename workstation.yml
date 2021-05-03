@@ -11,8 +11,8 @@
 
   tasks:
     - include: tasks/users.yml
-    - include: tasks/packages.yml
-    - include: tasks/packages_workstation.yml
-    - include: tasks/cron_workstation.yml
-    - include: tasks/gnome.yml
-    - include: tasks/oh-my-zsh.yml
+    - include: tasks/sw_packages.yml
+    - include: tasks/w_packages.yml
+    - include: tasks/w_cron.yml
+    - include: tasks/w_gnome.yml
+    - include: tasks/sw_oh-my-zsh.yml

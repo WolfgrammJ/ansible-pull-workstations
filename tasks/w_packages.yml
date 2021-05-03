@@ -3,6 +3,7 @@
     pkg:
     - remmina
     - default-jre
+    - arc-theme
 
 - name: Install TeamViewer
   become: yes
@@ -40,5 +41,4 @@
   ansible.builtin.file:
     path: /home/{{ username }}/netExtenderClient/
     state: absent
-
 
