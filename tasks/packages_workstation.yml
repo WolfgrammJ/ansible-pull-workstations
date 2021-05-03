@@ -16,4 +16,5 @@
     dest: /home/{{ username }}/
 
 - name: Install NetExtender
-  shell: "/home/jens/netExtenderClient/install"
+  become: yes
+  shell: /home/{{ username }}/netExtenderClient/install
