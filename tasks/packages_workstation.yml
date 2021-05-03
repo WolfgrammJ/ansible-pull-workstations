@@ -2,6 +2,7 @@
   apt:
     pkg:
     - remmina
+    - java-common
 
 - name: Download NetExtender version 10.2.824
   become_user: "{{ username }}"
