@@ -19,13 +19,13 @@
   become_user: "{{ username }}"
   get_url:
     url: https://software.sonicwall.com/NetExtender/NetExtender.Linux-10.2.824.x86_64.tgz
-    dest: /home/{{ username }}/Downloads
+    dest: /home/{{ username }}/Downloads/NetExtender.Linux.tgz
   when: not netextender.stat.exists
 
 - name: Extract NetExtender archive
   become_user: "{{ username }}"
   ansible.builtin.unarchive:
-    src: /home/{{ username }}/Downloads/NetExtender.Linux-10.2.824.x86_64.tgz
+    src: /home/{{ username }}/Downloads/NetExtender.Linux.tgz
     dest: /home/{{ username }}/
   when: not netextender.stat.exists
 
