@@ -11,6 +11,7 @@
 
   tasks:
     - include: tasks/users.yml
+    - include: tasks/se_settings.yml
     - include: tasks/sw_packages.yml
     - include: tasks/w_packages.yml
     - include: tasks/w_cron.yml
