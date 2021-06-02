@@ -42,3 +42,18 @@
     path: /home/{{ username }}/netExtenderClient/
     state: absent
 
+- name: Check if VMware Workstation Pro is installed
+  stat:
+    path: /usr/bin/vmware
+  register: vmware
+
+- name: Download VMware Workstation Pro
+  become_user: "{{ username }}"
+  get_url:
+    url: https://www.vmware.com/go/getworkstation-linux
+    dest: /home/{{ username }}/VMware_Workstation_Pro.bundle
+  when: not vmware.stat.exists
+  
+- name: Install VMware Workstation Pro
+  become: yes
+  ansible.builtin.command: ./home/{{ username }}/VMware_Workstation_Pro.bundle
