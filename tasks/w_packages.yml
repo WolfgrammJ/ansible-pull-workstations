@@ -5,6 +5,7 @@
     - default-jre
     - arc-theme
     - freerdp2-x11
+    - terminator
 
 - name: Install TeamViewer
   become: yes
