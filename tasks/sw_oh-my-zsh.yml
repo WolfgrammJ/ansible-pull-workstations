@@ -19,7 +19,7 @@
 - name: Install Oh-my-zsh
   become_user: "{{ username }}"
   shell: ~/install-oh-my-zsh.sh
-  when: not omz.stat.exists and not omz.stat.isdir
+  when: not omz.stat.exists
 
 - name: Delete install-script for oh-my-zsh
   become_user: "{{ username }}"
