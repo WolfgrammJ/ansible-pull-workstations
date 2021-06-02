@@ -14,7 +14,7 @@
     url: https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
     dest: ~/install-oh-my-zsh.sh
     mode: '0777'
-  when: not omz.stat.exists and not omz.stat.isdir
+  when: not omz.stat.exists
 
 - name: Install Oh-my-zsh
   become_user: "{{ username }}"
