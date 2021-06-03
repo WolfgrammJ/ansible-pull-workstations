@@ -1,0 +1,14 @@
+rdp() {
+	xfreerdp /multimon +clipboard /sound:sys:alsa /u:Jens.Wolfgramm /v:$1
+}
+
+gitall() {
+    git add .
+    if [ -n "$1" ]
+    then
+        git commit -m "$1"
+    else
+        git commit -m update
+    fi
+    git push
+}
