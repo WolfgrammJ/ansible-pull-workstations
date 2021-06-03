@@ -2,8 +2,8 @@
   ansible.builtin.copy:
     src: files/.aliases_workstation
     dest: /home/{{ username }}/.aliases
-    owner: {{ username }}
-    group: {{ username }}
+    owner: "{{ username }}"
+    group: "{{ username }}"
     mode: '744'
     backup: yes
 
