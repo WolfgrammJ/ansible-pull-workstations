@@ -1,4 +1,4 @@
-- name: Copy ".aliases_workstaion"
+- name: Copy ".aliases_workstation"
   ansible.builtin.copy:
     src: files/.aliases_workstation
     dest: /home/{{ username }}/.aliases
