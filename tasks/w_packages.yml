@@ -43,3 +43,11 @@
   ansible.builtin.file:
     path: /home/{{ username }}/netExtenderClient/
     state: absent
+
+- name: Download MS Teams
+  ansible.builtin.shell: curl -O -J -L https://go.microsoft.com/fwlink/p/\?LinkID\=2112886\&clcid\=0x407\&culture\=de-de\&country\=D -o /home/{{ username }}/Downloads/MSTeams.deb
+  register: msteams
+
+- name: Install MS Teams
+  apt:
+    deb: /home/{{ username }}/Downloads/MSTeams.deb
