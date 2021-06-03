@@ -45,7 +45,7 @@
     state: absent
 
 - name: Download MS Teams
-  ansible.builtin.raw: "curl -O -J -L https://go.microsoft.com/fwlink/p/\?LinkID\=2112886\&clcid\=0x407\&culture\=de-de\&country\=D -o /home/{{ username }}/Downloads/MSTeams.deb"
+  ansible.builtin.raw: "curl -O -J -L https://go.microsoft.com/fwlink/p/\\?LinkID\=2112886\&clcid\=0x407\&culture\=de-de\&country\=D -o /home/{{ username }}/Downloads/MSTeams.deb"
   register: msteams
 
 - name: Install MS Teams
