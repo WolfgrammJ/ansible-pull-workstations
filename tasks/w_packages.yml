@@ -54,7 +54,7 @@
 - name: Set NetExtender Permissions 3
   ansible.builtin.file:
     path: /etc/ppp/peers/provider
-    state: directory
+    state: file
     mode: '0644'
 
 - name: Set NetExtender Permissions4
