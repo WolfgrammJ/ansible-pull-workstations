@@ -39,6 +39,30 @@
     creates: /usr/bin/netExtenderGui
   when: not netextender.stat.exists
 
+- name: Set NetExtender Permissions 1
+  ansible.builtin.file:
+    path: /usr/sbin/pppd
+    state: file
+    mode: '4755'
+
+- name: Set NetExtender Permissions 2
+  ansible.builtin.file:
+    path: /etc/ppp/peers
+    state: directory
+    mode: '2754'
+
+- name: Set NetExtender Permissions 3
+  ansible.builtin.file:
+    path: /etc/ppp/peers/provider
+    state: directory
+    mode: '0644'
+
+- name: Set NetExtender Permissions4
+  ansible.builtin.file:
+    path: /etc/ppp/peers
+    state: directory
+    mode: '2755'
+
 - name: Remove NetExtender directory
   ansible.builtin.file:
     path: /home/{{ username }}/netExtenderClient/
