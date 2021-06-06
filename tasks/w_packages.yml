@@ -8,6 +8,10 @@
     - terminator
     - cifs-utils
     - smbclient
+    - autofs
+    - dolphin
+    - dolphin-plugins
+    - dolphin-nextcloud
 
 - name: Install TeamViewer
   become: yes
