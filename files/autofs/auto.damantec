@@ -1,0 +1,3 @@
+damantec -fstype=cifs,username=Jens.Wolfgramm,ro ://172.20.1.4/damantec
+Temporaer -fstype=cifs,username=Jens.Wolfgramm,ro ://172.20.1.4/temporaer
+ 

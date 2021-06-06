@@ -73,3 +73,17 @@
   ansible.builtin.file:
     path: /home/{{ username }}/netExtenderClient/
     state: absent
+
+- name: Configure autofs "auto.master"
+  become: yes
+  ansible.builtin.lineinfile:
+    path: /etc/auto.master
+    regex: '^/mnt/damantec '
+    line: /mnt/damantec /etc/auto.damantec -timeout=0 --ghost
+
+- name: Copy file auto.damantec for autofs
+  become: yes
+  ansible.builtin.copy:
+    src: files/autofs/auto.damantec
+    dest: /etc/auto.damantec
+
