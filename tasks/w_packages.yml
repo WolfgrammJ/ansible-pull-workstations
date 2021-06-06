@@ -6,6 +6,7 @@
     - arc-theme
     - freerdp2-x11
     - terminator
+    - cifs-utils
 
 - name: Install TeamViewer
   become: yes
