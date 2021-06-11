@@ -1,5 +1,5 @@
 - name: Install packages
-  ansible.builtiin.package:
+  ansible.builtin.package:
     name:
       - htop
       - mc
