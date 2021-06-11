@@ -3,11 +3,19 @@
     username: jens
   become: true
   pre_tasks:
-    - name: update repositories
+    - name: update repositories (Debian)
       apt:
         update_cache: yes
         allow_unauthenticated: yes
       changed_when: false
+      when: ansible_facts['os_family'] == 'Debian'
+
+    - name: update repositories (RedHat)
+      dnf:
+        update_cache: yes
+      changed_when: false
+      when: ansible_facts['os_family'] == 'RedHat'
+     
 
   tasks:
     - include: tasks/users.yml
