@@ -13,6 +13,9 @@
       - "{{ freerdp }}"
       - terminator 
       - cifs-utils
+      - "{{ smbclient }}"
+      - autofs
+      - "{{ dolphin-nextcloud }}"
     state: latest
 
 - name: Install TeamViewer (Debian)
