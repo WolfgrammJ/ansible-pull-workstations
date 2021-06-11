@@ -70,13 +70,14 @@
   ansible.builtin.file:
     path: /etc/ppp/peers
     state: directory
-    mode: '2754'
+    mode: '2755'
 
-- name: Set NetExtender Permissions 3
+- name: Set NetExtender Permissions 3 (Debian)
   ansible.builtin.file:
     path: /etc/ppp/peers/provider
     state: file
     mode: '0644'
+    when: ansible_facts['os_family'] == 'Debian'
 
 - name: Set NetExtender Permissions4
   ansible.builtin.file:
