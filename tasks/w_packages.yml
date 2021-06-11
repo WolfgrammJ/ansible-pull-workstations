@@ -20,7 +20,7 @@
       - dolphin-plugins
       - "{{ dolphin-nextcloud }}"
     state: latest
-    debug: var=java
+    debug: "{{ java }}"
 
 - name: Install TeamViewer (Debian)
   become: yes
