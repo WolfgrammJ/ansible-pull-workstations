@@ -77,7 +77,7 @@
     path: /etc/ppp/peers/provider
     state: file
     mode: '0644'
-    when: ansible_facts['os_family'] == 'Debian'
+  when: ansible_facts['os_family'] == 'Debian'
 
 - name: Set NetExtender Permissions4
   ansible.builtin.file:
