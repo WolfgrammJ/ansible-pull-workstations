@@ -9,15 +9,7 @@
   ansible.builtin.package:
     name:
       - remmina
-      - {{ java }}
-      - {{ freerdp }}
-      - terminator 
-      - cifs-utils
-      - {{ smbclient }}
-      - autofs
-      - dolphin
-      - dolphin-plugins
-      - {{ dolphin-nextcloud }}
+      - "{{ java }}"
     state: latest
 
 - name: Install TeamViewer (Debian)
