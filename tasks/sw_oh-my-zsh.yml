@@ -40,10 +40,10 @@
     dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 
 - name: Install requirements for autojump
-  apt:
-    pkg:
-    - python
-    - python3
+  ansible.builtin.package:
+    name:
+      - python
+      - python3
     state: present
 
 - name: Clone git repo "autojump"
