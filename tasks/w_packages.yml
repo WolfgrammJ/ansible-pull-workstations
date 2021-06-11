@@ -15,7 +15,8 @@
       - cifs-utils
       - "{{ smbclient }}"
       - autofs
-      - "{{ dolphin-nextcloud }}"
+      - dolphin
+      - dolphin-plugins
     state: latest
 
 - name: Install TeamViewer (Debian)
