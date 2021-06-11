@@ -1,13 +1,14 @@
 - name: Install packages
-  apt:
-    pkg:
-    - htop
-    - mc
-    - neofetch
-    - tmux
-    - zsh
-    - remmina
-    - snapd
+  ansible.builtiin.package:
+    name:
+      - htop
+      - mc
+      - neofetch
+      - tmux
+      - zsh
+      - remmina
+      - snapd
+    state: latest
 
 - name: Configure tmux local
   ansible.builtin.copy:
