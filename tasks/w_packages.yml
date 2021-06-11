@@ -10,6 +10,9 @@
     name:
       - remmina
       - "{{ java }}"
+      - "{{ freerdp }}"
+      - terminator 
+      - cifs-utils
     state: latest
 
 - name: Install TeamViewer (Debian)
