@@ -2,4 +2,3 @@ java: java-latest-openjdk.x86_64
 freerdp: freerdp
 smbclient: samba-client
 dolphin-nextcloud: nextcloud-client-dolphin
-test: test

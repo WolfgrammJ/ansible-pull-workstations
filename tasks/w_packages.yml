@@ -17,7 +17,6 @@
       - autofs
       - dolphin
       - dolphin-plugins
-      - "{{ dolphin-nextcloud }}"
     state: latest
 
 - name: Install TeamViewer (Debian)
