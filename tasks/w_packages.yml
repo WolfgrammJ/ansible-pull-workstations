@@ -1,9 +1,9 @@
 - name: gather os specific variables
   include_vars: "{{ item }}"
   with_first_found:
-    - "{{ ansible_distribution|lower }}-{{ ansible_distribution_major_version|lower}}.yml"
-    - "{{ ansible_distribution|lower }}.yml"
-    - "{{ ansible_os_family|lower }}.yml"
+    - "vars/{{ ansible_distribution|lower }}-{{ ansible_distribution_major_version|lower}}.yml"
+    - "vars/{{ ansible_distribution|lower }}.yml"
+    - "vars/{{ ansible_os_family|lower }}.yml"
   tags: vars
 
 - name: Install workstation packages
