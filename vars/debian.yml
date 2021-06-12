@@ -1,4 +1,4 @@
 java: default-jre
-freerdp: xfreerdp-x11
+freerdp: freerdp2-x11
 smbclient: smbclient
 dolphin-nextcloud: dolphin-nextcloud
