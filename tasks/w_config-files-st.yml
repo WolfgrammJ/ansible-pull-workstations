@@ -7,8 +7,8 @@
 - name: Add symlink for terminator config
   become_user: "{{ username }}"
   ansible.builtin.file:
-    src: ~/.config/terminator/config
-    dest: ~/.config-files-st/terminator
+    src: ~/.config-files-st/terminator
+    dest: ~/.config/terminator/config
     state: link
     force: yes
   when: configfilesst.stat.exists
