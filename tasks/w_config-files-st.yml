@@ -1,0 +1,13 @@
+- name: Check if directory "~/.config-files-st" exists
+  become_user: "{{ username }}"
+  stat:
+    path: ~/.config-files-st
+  register: config-files-st
+
+- name: Add symlink for terminator config
+  become_user: "{{ username }}"
+  ansible.builtin.file:
+    src: ~/.config/terminator/config
+    dest: ~/.config-files-st/terminator
+    state: link
+  when: config-files-st.stat.exists
