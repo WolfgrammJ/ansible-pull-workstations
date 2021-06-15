@@ -5,6 +5,21 @@
     - "vars/{{ ansible_distribution|lower }}.yml"
     - "vars/{{ ansible_os_family|lower }}.yml"
 
+- name: Add remmina repository from PPA and install its signing key on Ubuntu target
+  ansible.builtin.apt_repository:
+    repo: ppa:remmina-ppa-team/remmina-next
+
+- name: Add PGP key and repository for syncthing
+  become_user: yes
+  raw: |
+    curl -s https://syncthing.net/release-key.txt | sudo apt-key add -
+    echo "deb https://apt.syncthing.net/ syncthing stable" | sudo tee /etc/apt/sources.list.d/syncthing.list
+
+- name: Update repositories cache (Debian)
+  apt:
+    update_cache: yes
+  when: ansible_facts['os_family'] == 'Debian'
+
 - name: Install workstation packages
   ansible.builtin.package:
     name:
@@ -13,6 +28,7 @@
       - remmina-plugin-www
       - remmina-plugin-nx
       - remmina-plugin-kwallet
+      - syncthing xx
       - "{{ java }}"
       - "{{ freerdp }}"
       - terminator 
@@ -115,7 +131,18 @@
     src: files/autofs/auto.damantec
     dest: /etc/auto.damantec
 
-- name: Add remmina repository from PPA and install its signing key on Ubuntu target
-  ansible.builtin.apt_repository:
-    repo: ppa:remmina-ppa-team/remmina-next
+- name: Download and move syncthing service
+  become_user: "{{ username }}"
+  raw: |
+    wget -P ~/ https://raw.githubusercontent.com/syncthing/syncthing/main/etc/linux-systemd/system/syncthing%40.service
+    sudo chown root: syncthing@.service
+    sudo mv ~/syncthing@.service /etc/systemd/system
+    sudo systemctl daemon-reload
 
+- name: Setting up syncthing service
+  become: yes
+  ansible.builtin.systemd:
+    daemon_reload: yes
+    state: restarted
+    enabled: yes
+    name: syncthing@"{{ username }}"
