@@ -28,7 +28,7 @@
       - remmina-plugin-www
       - remmina-plugin-nx
       - remmina-plugin-kwallet
-      - syncthing xx
+      - syncthing
       - "{{ java }}"
       - "{{ freerdp }}"
       - terminator 
