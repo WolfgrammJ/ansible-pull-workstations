@@ -9,6 +9,10 @@
   ansible.builtin.package:
     name:
       - remmina
+      - remmina-plugin-exec
+      - remmina-plugin-www
+      - remmina-plugin-nx
+      - remmina-plugin-kwallet
       - "{{ java }}"
       - "{{ freerdp }}"
       - terminator 
@@ -110,4 +114,8 @@
   ansible.builtin.copy:
     src: files/autofs/auto.damantec
     dest: /etc/auto.damantec
+
+- name: Add remmina repository from PPA and install its signing key on Ubuntu target
+  ansible.builtin.apt_repository:
+    repo: ppa:remmina-ppa-team/remmina-next
 
