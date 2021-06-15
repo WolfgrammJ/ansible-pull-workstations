@@ -2,7 +2,7 @@
   become_user: "{{ username }}"
   stat:
     path: ~/.config-files-st
-  register: config-files-st
+  register: configfilesst
 
 - name: Add symlink for terminator config
   become_user: "{{ username }}"
@@ -10,4 +10,4 @@
     src: ~/.config/terminator/config
     dest: ~/.config-files-st/terminator
     state: link
-  when: config-files-st.stat.exists
+  when: configfilesst.stat.exists
