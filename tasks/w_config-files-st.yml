@@ -4,11 +4,20 @@
     path: ~/.config-files-st
   register: configfilesst
 
-- name: Add symlink for terminator config
+- name: Add symlink for Terminator config
   become_user: "{{ username }}"
   ansible.builtin.file:
     src: ~/.config-files-st/terminator
     dest: ~/.config/terminator/config
+    state: link
+    force: yes
+  when: configfilesst.stat.exists
+
+- name: Add symlink for Remmina
+  become_user: "{{ username }}"
+  ansible.builtin.file:
+    src: ~/.config-files-st/remmina/
+    dest: ~/.local/share/remmina
     state: link
     force: yes
   when: configfilesst.stat.exists
