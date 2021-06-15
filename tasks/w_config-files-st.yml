@@ -4,6 +4,13 @@
     path: ~/.config-files-st
   register: configfilesst
 
+- name: Delete Terminator config file
+  become_user: "{{ username }}"
+  ansible.builtin.file:
+    path: ~/.config/terminator/config
+    state: absent
+  when: configfilesst.stat.exists
+
 - name: Add symlink for terminator config
   become_user: "{{ username }}"
   ansible.builtin.file:
