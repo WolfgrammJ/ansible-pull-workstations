@@ -7,8 +7,8 @@
 - name: Install/update virtual-desktop-bar dependencies
   become: yes
   become_user: "{{ username }}"
-  ansible.builtin.shell: install-dependencies-ubuntu.sh
-  args:
+  ansible.builtin.shell:
+    cmd: install-dependencies-ubuntu.sh
     chdir: /home/{{ username }}/virtual-desktop-bar/scripts/
   when: ansible_facts['os_family'] == 'Debian'
 
