@@ -12,3 +12,7 @@ gitall() {
     fi
     git push
 }
+
+function sst()  {
+ssh -t $@ "tmux attach || tmux";
+}
