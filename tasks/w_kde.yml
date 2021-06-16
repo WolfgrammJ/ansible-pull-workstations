@@ -11,5 +11,7 @@
 
 - name: Install/update virtual-desktop-bar
   become_user: "{{ username }}"
-  shell: sh ~/virtual-desktop-bar/scripts/install-applet.sh
+  shell: install-applet.sh
+  args:
+    chdir: ~/virtual-desktop-bar/scripts/
   when: ansible_facts['os_family'] == 'Debian'
