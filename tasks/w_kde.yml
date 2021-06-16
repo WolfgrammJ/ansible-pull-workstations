@@ -8,7 +8,7 @@
   become: yes
   become_user: "{{ username }}"
   ansible.builtin.shell: install-dependencies-ubuntu.sh
-    args:
-      chdir: /home/{{ username }}/virtual-desktop-bar/scripts/
+  args:
+    chdir: /home/{{ username }}/virtual-desktop-bar/scripts/
   when: ansible_facts['os_family'] == 'Debian'
 
