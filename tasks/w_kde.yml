@@ -7,7 +7,7 @@
 - name: Install/update virtual-desktop-bar
   become: yes
   raw: |
-    ./home/"{{ username }}"/virtual-desktop-bar/scripts/install-dependencies-ubuntu.sh
-    ./home/"{{ username }}"/virtual-desktop-bar/scripts/install-applet.sh
+    sh /home/"{{ username }}"/virtual-desktop-bar/scripts/install-dependencies-ubuntu.sh
+    sh /home/"{{ username }}"/virtual-desktop-bar/scripts/install-applet.sh
   when: ansible_facts['os_family'] == 'Debian'
 
