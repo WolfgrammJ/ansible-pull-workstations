@@ -9,7 +9,7 @@
   shell: yes | sh /home/"{{ username }}"/virtual-desktop-bar/scripts/install-dependencies-ubuntu.sh
   when: ansible_facts['os_family'] == 'Debian'
 
-- name: Install/update virtual-desktop-bar dependencies
-  become: yes
+- name: Install/update virtual-desktop-bar
+  become_user: "{{ username }}"
   shell: sh /home/"{{ username }}"/virtual-desktop-bar/scripts/install-applet.sh
   when: ansible_facts['os_family'] == 'Debian'
