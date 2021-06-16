@@ -4,10 +4,8 @@
     repo: https://github.com/wsdfhjxc/virtual-desktop-bar.git
     dest: ~/virtual-desktop-bar
 
-- name: Install/update virtual-desktop-bar
+- name: Install/update virtual-desktop-bar dependencies
   become: yes
-  raw: |
-    sh /home/"{{ username }}"/virtual-desktop-bar/scripts/install-dependencies-ubuntu.sh
-    sh /home/"{{ username }}"/virtual-desktop-bar/scripts/install-applet.sh
+  ansible.builtin.command: sh /home/"{{ username }}"/virtual-desktop-bar/scripts/install-dependencies-ubuntu.sh
   when: ansible_facts['os_family'] == 'Debian'
 
