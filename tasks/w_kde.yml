@@ -7,6 +7,6 @@
 - name: Install/update virtual-desktop-bar dependencies
   become: yes
   ansible.builtin.raw: |
-    sh /home/{{ username }}/virtual-desktop-bar/scripts/install-dependencies-ubuntu.sh >> /dev/null
+    sh /home/"{{ username }}"/virtual-desktop-bar/scripts/install-dependencies-ubuntu.sh >> /dev/null
   when: ansible_facts['os_family'] == 'Debian'
 
