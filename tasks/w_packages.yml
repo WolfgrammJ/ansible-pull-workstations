@@ -118,18 +118,31 @@
     path: /home/{{ username }}/netExtenderClient/
     state: absent
 
-- name: Configure autofs "auto.master"
+- name: Configure autofs "auto.master" for auto.damantec
   become: yes
   ansible.builtin.lineinfile:
     path: /etc/auto.master
     regex: '^/mnt/dmt '
     line: /mnt/dmt /etc/auto.damantec -timeout=0 --ghost
 
+- name: Configure autofs "auto.master" for auto.nasdmt003
+  become: yes
+  ansible.builtin.lineinfile:
+    path: /etc/auto.master
+    regex: '^/mnt/NASDMT003 '
+    line: /mnt/NASDMT003 /etc/auto.nasdmt003 -timeout=0 --ghost
+
 - name: Copy file auto.damantec for autofs
   become: yes
   ansible.builtin.copy:
     src: files/autofs/auto.damantec
     dest: /etc/auto.damantec
+
+- name: Copy file auto.nasdmt003 for autofs
+  become: yes
+  ansible.builtin.copy:
+    src: files/autofs/auto.nasdmt003
+    dest: /etc/auto.nasdmt003
 
 - name: Download and move syncthing service
   become_user: "{{ username }}"
