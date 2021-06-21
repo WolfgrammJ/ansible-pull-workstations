@@ -26,17 +26,17 @@
   ansible.builtin.package:
     name:
       - remmina
-      - remmina-plugin-exec
-      - remmina-plugin-www
-      - remmina-plugin-nx
-      - remmina-plugin-kwallet
+      - "{{ remmina-plugin-exec }}"
+      - "{{ remmina-plugin-www }}"
+      - "{{ remmina-plugin-nx }}"
+      - "{{ remmina-plugin-kwallet }}"
       - syncthing
       - "{{ java }}"
       - "{{ freerdp }}"
       - terminator 
       - cifs-utils
       - "{{ smbclient }}"
-      - autofs
+      - "{{ autofs }}"
       - dolphin
       - dolphin-plugins
     state: latest
