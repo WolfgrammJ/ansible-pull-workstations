@@ -138,6 +138,7 @@
     path: /etc/auto.master
     regex: '^/mnt/dmt '
     line: /mnt/dmt /etc/auto.damantec -timeout=0 --ghost
+  when: ansible_facts['os_family'] == 'Debian'
 
 - name: Configure autofs "auto.master" for auto.nasdmt003
   become: yes
