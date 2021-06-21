@@ -8,6 +8,7 @@
 - name: Add remmina repository from PPA and install its signing key on Ubuntu target
   ansible.builtin.apt_repository:
     repo: ppa:remmina-ppa-team/remmina-next
+  when: ansible_facts['os_family'] == 'Debian'
 
 - name: Add PGP key and repository for syncthing
   become: yes
