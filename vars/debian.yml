@@ -2,3 +2,8 @@ java: default-jre
 freerdp: freerdp2-x11
 smbclient: smbclient
 dolphin-nextcloud: dolphin-nextcloud
+remmina-plugin-exec: remmina-plugin-exec
+remmina-plugin-www: remmina-plugin-www
+remmina-plugin-nx: remmina-plugin-nx
+remmina-plugin-kwallet: remmina-plugin-kwallet
+autofs: autofs
