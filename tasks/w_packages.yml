@@ -22,24 +22,36 @@
     update_cache: yes
   when: ansible_facts['os_family'] == 'Debian'
 
-- name: Install workstation packages
+- name: Install workstation packages (all Ditros)
   ansible.builtin.package:
     name:
       - remmina
-      - "{{ remmina-plugin-exec }}"
-      - "{{ remmina-plugin-www }}"
-      - "{{ remmina-plugin-nx }}"
-      - "{{ remmina-plugin-kwallet }}"
       - syncthing
       - "{{ java }}"
       - "{{ freerdp }}"
       - terminator 
       - cifs-utils
       - "{{ smbclient }}"
-      - "{{ autofs }}"
       - dolphin
       - dolphin-plugins
     state: latest
+
+- name: Install workstation packages (Debian)
+  ansible.builtin.package:
+    name:
+      - remmina-plugin-exec
+      - remmina-plugin-www
+      - remmina-plugin-nx
+      - remmina-plugin-kwallet
+      - autofs
+    state: latest
+    when: ansible_facts['os_family'] == 'Debian'
+
+- name: Install workstation packages (Arch)
+  ansible.builtin.package:
+    name:
+    state: latest
+    when: ansible_facts['os_family'] == 'Archlinux'
 
 - name: Install TeamViewer (Debian)
   become: yes

@@ -1,9 +1,3 @@
 java: jdk-openjdk
 freerdp: freerdp
 smbclient: smbclient
-dolphin-nextcloud:
-remmina-plugin-exec:
-remmina-plugin-www:
-remmina-plugin-nx:
-remmina-plugin-kwallet:
-autofs:
