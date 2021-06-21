@@ -15,6 +15,7 @@
   raw: |
     curl -s https://syncthing.net/release-key.txt | sudo apt-key add -
     echo "deb https://apt.syncthing.net/ syncthing stable" | sudo tee /etc/apt/sources.list.d/syncthing.list
+  when: ansible_facts['os_family'] == 'Debian'
 
 - name: Update repositories cache (Debian)
   apt:
