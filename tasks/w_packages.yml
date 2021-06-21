@@ -45,13 +45,13 @@
       - remmina-plugin-kwallet
       - autofs
     state: latest
-    when: ansible_facts['os_family'] == 'Debian'
+  when: ansible_facts['os_family'] == 'Debian'
 
 - name: Install workstation packages (Arch)
   ansible.builtin.package:
     name:
     state: latest
-    when: ansible_facts['os_family'] == 'Archlinux'
+  when: ansible_facts['os_family'] == 'Archlinux'
 
 - name: Install TeamViewer (Debian)
   become: yes
