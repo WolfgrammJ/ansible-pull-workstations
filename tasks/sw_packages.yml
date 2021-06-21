@@ -28,6 +28,12 @@
     repo: https://github.com/tmux-plugins/tpm
     dest: ~/.tmux/plugins/tpm
 
+- name: Copy backup-home-dir.sh
+  ansible.builtin.copy:
+    src: files/backup-home-dir.sh
+    dest: /home/{{ username }}/backup-home-dir.sh
+    backup: yes
+
 - name: Install tmux-plugins
   become_user: "{{ username }}"
   raw: |

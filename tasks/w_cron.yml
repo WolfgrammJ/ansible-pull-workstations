@@ -1,2 +1,2 @@
 - name: install cron job (ansible-pull)
-  cron: user="ansible" name="ansible provision" minute="*/10" job="/usr/bin/ansible-pull -o -U https://github.com/WolfgrammJ/ansible-pull.git workstation.yml > /dev/null"
+  cron: user="ansible" name="ansible provision" minute="*/10" job="/usr/bin/ansible-pull --vault-password-file /home/{{ username }}/.ansible-vault.pwd -o -U https://github.com/WolfgrammJ/ansible-pull.git workstation.yml > /dev/null"
