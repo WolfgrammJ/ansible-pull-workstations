@@ -77,6 +77,13 @@
     state: directory
   when: ansible_facts['os_family'] == 'Archlinux'
 
+- name: Add DMT > DAMANTEC to fstab
+  become: yes
+  ansible.builtin.lineinfile:
+    path: /etc/fstab
+    regex: '^//172.20.2.4/DAMANTEC'
+    line: //172.20.2.4/damantec /mnt/DMT/DAMANTEC cifs x-systemd.automount,x-systemd.idle-timeout=1min,rw,uid=jens,gid=jens,credentials=/home/jens/.damantec.cred,iocharset=utf8,vers=3.0 0 0
+  when: ansible_facts['os_family'] == 'Archlinux'
 
 - name: Add nasdmt003 > linux_home_backup to fstab
   become: yes
