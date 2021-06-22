@@ -128,8 +128,8 @@
   become: yes
   ansible.builtin.lineinfile:
     path: /etc/fstab
-    regex: '^//172.20.1.4/WolfgrammJ'
-    line: //172.20.1.4/HomeDirs\$/WolfgrammJ /mnt/DMT/WolfgrammJ cifs x-systemd.automount,x-systemd.idle-timeout=1min,rw,uid=jens,gid=jens,credentials=/home/jens/.damantec.cred,iocharset=utf8,vers=3.0 0 0
+    regex: '^//172.20.1.4/HomeDirs$/WolfgrammJ'
+    line: //172.20.1.4/HomeDirs$/WolfgrammJ /mnt/DMT/WolfgrammJ cifs x-systemd.automount,x-systemd.idle-timeout=1min,rw,uid=jens,gid=jens,credentials=/home/jens/.damantec.cred,iocharset=utf8,vers=3.0 0 0
   when: ansible_facts['os_family'] == 'Archlinux'
 
 - name: Add nasdmt003 > linux_home_backup to fstab

@@ -50,6 +50,7 @@
 - name: Install workstation packages (Arch)
   ansible.builtin.package:
     name:
+      - timeshift-autosnap
     state: latest
   when: ansible_facts['os_family'] == 'Archlinux'
 
