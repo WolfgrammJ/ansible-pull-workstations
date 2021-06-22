@@ -51,6 +51,7 @@
   ansible.builtin.package:
     name:
       - timeshift-autosnap
+      - grub-btrfs
     state: latest
   when: ansible_facts['os_family'] == 'Archlinux'
 
