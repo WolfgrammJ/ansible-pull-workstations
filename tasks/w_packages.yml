@@ -92,7 +92,7 @@
   when: ansible_facts['os_family'] == 'Archlinux'
 
 - name: Extract TeamViewer archive (Arch)
-  become_user: "{{ username }}"
+  become: yes
   ansible.builtin.unarchive:
     src: /home/{{ username }}/teamviewer_amd64.tar.xz
     dest: /home/{{ username }}/
