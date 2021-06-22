@@ -109,9 +109,9 @@
   when: ansible_facts['os_family'] == 'Archlinux'
 
 - name: Delete TeamViewer installation files 1/2 (Arch)
-  become_user: "{{ username }}"
+  become: yes
   ansible.builtin.file:
-    path: ~/teamviewer_amd64.tar.xz
+    path: /home/{{ username }}/teamviewer_amd64.tar.xz
     state: absent
   when: ansible_facts['os_family'] == 'Archlinux'
 
