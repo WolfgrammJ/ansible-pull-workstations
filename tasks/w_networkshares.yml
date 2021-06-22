@@ -1,0 +1,87 @@
+###################################
+# DEBIAN
+###################################
+- name: Configure autofs "auto.master" for auto.damantec
+  become: yes
+  ansible.builtin.lineinfile:
+    path: /etc/auto.master
+    regex: '^/mnt/dmt '
+    line: /mnt/dmt /etc/auto.damantec -timeout=0 --ghost
+  when: ansible_facts['os_family'] == 'Debian'
+
+- name: Configure autofs "auto.master" for auto.nasdmt003
+  become: yes
+  ansible.builtin.lineinfile:
+    path: /etc/auto.master
+    regex: '^/mnt/NASDMT003 '
+    line: /mnt/NASDMT003 /etc/auto.nasdmt003 -timeout=0 --ghost
+  when: ansible_facts['os_family'] == 'Debian'
+
+- name: Copy file auto.damantec for autofs
+  become: yes
+  ansible.builtin.copy:
+    src: files/autofs/auto.damantec
+    dest: /etc/auto.damantec
+  when: ansible_facts['os_family'] == 'Debian'
+
+- name: Copy file auto.nasdmt003 for autofs
+  become: yes
+  ansible.builtin.copy:
+    src: files/autofs/auto.nasdmt003
+    dest: /etc/auto.nasdmt003
+  when: ansible_facts['os_family'] == 'Debian'
+
+###################################
+# ARCH
+###################################
+
+- name: Create directory "/mnt/DMT/DAMANTEC" if it does not exist (Arch)
+  become: yes
+  ansible.builtin.file:
+    path: /mnt/DMT/DAMANTEC
+    state: directory
+  when: ansible_facts['os_family'] == 'Archlinux'
+
+- name: Create directory "/mnt/DMT/Development" if it does not exist (Arch)
+  become: yes
+  ansible.builtin.file:
+    path: /mnt/DMT/Development
+    state: directory
+  when: ansible_facts['os_family'] == 'Archlinux'
+
+- name: Create directory "/mnt/DMT/Knowledge" if it does not exist (Arch)
+  become: yes
+  ansible.builtin.file:
+    path: /mnt/DMT/Knowledge
+    state: directory
+  when: ansible_facts['os_family'] == 'Archlinux'
+
+- name: Create directory "/mnt/DMT/Temporaer" if it does not exist (Arch)
+  become: yes
+  ansible.builtin.file:
+    path: /mnt/DMT/Temporaer
+    state: directory
+  when: ansible_facts['os_family'] == 'Archlinux'
+
+- name: Create directory "/mnt/DMT/WolfgrammJ" if it does not exist (Arch)
+  become: yes
+  ansible.builtin.file:
+    path: /mnt/DMT/WolfgrammJ
+    state: directory
+  when: ansible_facts['os_family'] == 'Archlinux'
+
+- name: Create directory "/mnt/nasdmt003/linux_home_backup" if it does not exist (Arch)
+  become: yes
+  ansible.builtin.file:
+    path: /mnt/nasdmt003/linux/homex_home_backup
+    state: directory
+  when: ansible_facts['os_family'] == 'Archlinux'
+
+
+- name: Remove "failovermethod" fr
+  become: yes
+  ansible.builtin.lineinfile:
+    path: /etc/yum.repos.d/teamviewer.repo
+    regex: '^//172.20.3.14/linux_home_backup'
+    line: //172.20.3.14/linux_home_backup /mnt/nasdmt003/linux_home_backup cifs x-systemd.automount,x-systemd.idle-timeout=1min,rw,uid=jens,gid=jens,credentials=/home/jens/.nasdmt003.cred,iocharset=utf8,vers=3.0 0 0
+  when: ansible_facts['os_family'] == 'Archlinux'

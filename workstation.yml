@@ -34,4 +34,5 @@
     - include: tasks/w_settings.yml
     - include: tasks/w_kde.yml
     - include: tasks/w_config-files-st.yml
+    - include: tasks/w_networkshares.yml
 
