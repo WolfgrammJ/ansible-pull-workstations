@@ -31,9 +31,24 @@
     dest: /etc/auto.nasdmt003
   when: ansible_facts['os_family'] == 'Debian'
 
+
 ###################################
 # ARCH
 ###################################
+
+- name: Copy file .nasdmt003.cred
+  become_user: "{{ username }}"
+  ansible.builtin.copy:
+    src: files/.nasdmt003.cred
+    dest: ~/.nasdmt003.cred
+  when: ansible_facts['os_family'] == 'Archlinux'
+
+- name: Copy file .damantec.cred
+  become_user: "{{ username }}"
+  ansible.builtin.copy:
+    src: files/.damantec.cred
+    dest: ~/.damantec.cred
+  when: ansible_facts['os_family'] == 'Archlinux'
 
 - name: Create directory "/mnt/DMT/DAMANTEC" if it does not exist (Arch)
   become: yes
