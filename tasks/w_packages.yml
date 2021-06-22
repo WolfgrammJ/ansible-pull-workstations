@@ -96,6 +96,7 @@
   ansible.builtin.unarchive:
     src: ~/teamviewer_amd64.tar.xz
     dest: ~/
+    remote_src: yes
   #when: not teamviewer.stat.exists
   when: ansible_facts['os_family'] == 'Archlinux'
 
