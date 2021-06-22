@@ -87,15 +87,15 @@
   become_user: "{{ username }}"
   get_url:
     url: https://download.teamviewer.com/download/linux/teamviewer_amd64.tar.xz
-    dest: /home/{{ username }}/teamviewer_amd64.tar.xz
+    dest: ~/teamviewer_amd64.tar.xz
   #when: not teamviewer_arch.stat.exists
   when: ansible_facts['os_family'] == 'Archlinux'
 
 - name: Extract TeamViewer archive (Arch)
   become_user: "{{ username }}"
   ansible.builtin.unarchive:
-    src: /home/{{ username }}/teamviewer_amd64.tar.xz
-    dest: /home/{{ username }}/
+    src: ~/teamviewer_amd64.tar.xz
+    dest: ~/
   #when: not teamviewer.stat.exists
   when: ansible_facts['os_family'] == 'Archlinux'
 
