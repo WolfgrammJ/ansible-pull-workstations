@@ -75,6 +75,37 @@
     regex: '^failovermethod='
   when: ansible_facts['os_family'] == 'RedHat'
 
+- name: Check if TeamViewer is installed (ARCH)
+  stat:
+    path: /usr/bin/teamviewer
+  register: teamviewer_arch
+  when: ansible_facts['os_family'] == 'Archlinux'
+
+- name: Download TeamViewer (Arch)
+  become_user: "{{ username }}"
+  get_url:
+    url: https://download.teamviewer.com/download/linux/teamviewer_amd64.tar.xz
+    dest: /home/{{ username }}/teamviewer_amd64.tar.xz
+  #when: not teamviewer_arch.stat.exists
+  when: ansible_facts['os_family'] == 'Archlinux'
+
+- name: Extract TeamViewer archive (Arch)
+  become_user: "{{ username }}"
+  ansible.builtin.unarchive:
+    src: /home/{{ username }}/teamviewer_amd64.tar.xz
+    dest: /home/{{ username }}/
+  #when: not teamviewer.stat.exists
+  when: ansible_facts['os_family'] == 'Archlinux'
+
+- name: Install TeamViewer (Arch)
+  become: yes
+  shell: ./tv-setup install force
+  args:
+    chdir: /home/{{ username }}/teamviewer/
+    creates: /usr/bin/teamviewer
+  #when: not teamviewer_arch.stat.exists
+  when: ansible_facts['os_family'] == 'Archlinux'
+
 - name: Check if NetExtender is installed
   stat:
     path: /usr/bin/netExtenderGui
@@ -131,36 +162,6 @@
   ansible.builtin.file:
     path: /home/{{ username }}/netExtenderClient/
     state: absent
-
-- name: Configure autofs "auto.master" for auto.damantec
-  become: yes
-  ansible.builtin.lineinfile:
-    path: /etc/auto.master
-    regex: '^/mnt/dmt '
-    line: /mnt/dmt /etc/auto.damantec -timeout=0 --ghost
-  when: ansible_facts['os_family'] == 'Debian'
-
-- name: Configure autofs "auto.master" for auto.nasdmt003
-  become: yes
-  ansible.builtin.lineinfile:
-    path: /etc/auto.master
-    regex: '^/mnt/NASDMT003 '
-    line: /mnt/NASDMT003 /etc/auto.nasdmt003 -timeout=0 --ghost
-  when: ansible_facts['os_family'] == 'Debian'
-
-- name: Copy file auto.damantec for autofs
-  become: yes
-  ansible.builtin.copy:
-    src: files/autofs/auto.damantec
-    dest: /etc/auto.damantec
-  when: ansible_facts['os_family'] == 'Debian'
-
-- name: Copy file auto.nasdmt003 for autofs
-  become: yes
-  ansible.builtin.copy:
-    src: files/autofs/auto.nasdmt003
-    dest: /etc/auto.nasdmt003
-  when: ansible_facts['os_family'] == 'Debian'
 
 - name: Download and move syncthing service
   become_user: "{{ username }}"
