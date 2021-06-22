@@ -83,5 +83,5 @@
   ansible.builtin.lineinfile:
     path: /etc/fstab
     regex: '^//172.20.3.14/linux_home_backup'
-    line: //172.20.3.14/linux_home_backup /mnt/nasdmt003/linux_home_backup cifs x-systemd.automount,x-systemd.idle-timeout=1min,rw,uid=jens,gid=jens,credentials=/home/jens/.nasdmt003.cred,iocharset=utf8,vers=3.0 0 0
+    line: //172.20.3.14/linux_home_backup /mnt/nasdmt003/linux_home_backup cifs x-systemd.automount,x-systemd.idle-timeout=1min,rw,uid=jens,gid=jens,credentials=/home/jens/.nasdmt003.cred,iocharset=utf8,vers=2.0 0 0
   when: ansible_facts['os_family'] == 'Archlinux'
