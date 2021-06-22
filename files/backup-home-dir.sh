@@ -4,7 +4,7 @@
 
 # Parameters
 sourcefolder=$HOME/
-targetfolder=/mnt/NASDMT003/linux_home_backup/$(hostname)/
+targetfolder=/mnt/nasdmt003/linux_home_backup/$(hostname)/
 
 logdirectory=$HOME/logs/backup
 logfilepath="$logdirectory/backup-home-dir.log"
