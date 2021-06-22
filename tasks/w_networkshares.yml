@@ -73,7 +73,7 @@
 - name: Create directory "/mnt/nasdmt003/linux_home_backup" if it does not exist (Arch)
   become: yes
   ansible.builtin.file:
-    path: /mnt/nasdmt003/linux/homex_home_backup
+    path: /mnt/nasdmt003/linux_home_backup
     state: directory
   when: ansible_facts['os_family'] == 'Archlinux'
 
