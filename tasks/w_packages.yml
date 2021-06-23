@@ -152,7 +152,7 @@
   when: not netextender.stat.exists
 
 - name: Delete Netextender installation files
-  becom: yes
+  become: yes
   ansible_builtin.file:
     path: /home/{{ username }}/NetExtender.Linux.tgz
     state: absent
