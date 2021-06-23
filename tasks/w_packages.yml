@@ -151,6 +151,12 @@
     creates: /usr/bin/netExtenderGui
   when: not netextender.stat.exists
 
+- name: Delete Netextender installation files
+  becom: yes
+  ansible_builtin.file:
+    path: /home/{{ username }}/NetExtender.Linux.tgz
+    state: absent
+
 - name: Set NetExtender Permissions 1
   ansible.builtin.file:
     path: /usr/sbin/pppd
