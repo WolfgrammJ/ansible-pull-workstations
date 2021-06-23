@@ -54,7 +54,7 @@
 
 - name: Install autojump
   become_user: "{{ username }}"
-  shell: ~/autojump/install.py
+  shell: python ~/autojump/install.py
 
 - name: Delete autojump installation directory
   become_user: "{{ username }}"
