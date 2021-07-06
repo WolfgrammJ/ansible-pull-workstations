@@ -14,7 +14,7 @@
     src: files/.tmux.conf
     dest: /home/{{ username }}/.tmux.conf
     owner: "{{ username }}"
-    group: "{{ username }}"
+#    group: "{{ username }}"
     backup: yes
 
 - name: Configure tmux remote
@@ -22,7 +22,7 @@
     src: files/.tmux.remote.conf
     dest: /home/{{ username }}/.tmux.remote.conf
     owner: "{{ username }}"
-    group: "{{ username }}"
+#    group: "{{ username }}"
     backup: yes
 
 - name: Clone tmux plugin-manager git-repository
@@ -36,7 +36,7 @@
     src: files/backup-home-dir.sh
     dest: /home/{{ username }}/backup-home-dir.sh
     owner: "{{ username }}"
-    group: "{{ username }}"
+#    group: "{{ username }}"
     backup: yes
 
 - name: Install tmux-plugins
