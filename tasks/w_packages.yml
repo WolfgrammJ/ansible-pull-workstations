@@ -21,6 +21,7 @@
   community.general.zypper_repository:
     repo: 'https://download.opensuse.org/repositories/system:/snappy/openSUSE_Tumbleweed snappy'
     auto_import_keys: yes
+    name: snapd
   when: ansible_facts['os_family'] == 'Suse'
 
 - name: Force refresh of a repository (Suse)
