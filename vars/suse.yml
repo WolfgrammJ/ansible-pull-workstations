@@ -1,4 +1,4 @@
-java: java-16--openjdk
+java: java-16-openjdk
 freerdp: freerdp
 smbclient: samba-client
 dolphin-nextcloud: nextcloud-desktop-dolphin
