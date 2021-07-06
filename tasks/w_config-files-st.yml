@@ -36,20 +36,20 @@
     force: yes
   when: configfilesst.stat.exists
 
-- name: Add symlink for KDE shortcuts (1)
-  become_user: "{{ username }}"
-  ansible.builtin.file:
-    src: ~/.config-files-st/KDE/kglobalshortcutsrc
-    dest: ~/.config/kglobalshortcutsrc
-    state: link
-    force: yes
-  when: configfilesst.stat.exists
+#- name: Add symlink for KDE shortcuts (1)
+#  become_user: "{{ username }}"
+#  ansible.builtin.file:
+#    src: ~/.config-files-st/KDE/kglobalshortcutsrc
+#    dest: ~/.config/kglobalshortcutsrc
+#    state: link
+#    force: yes
+#  when: configfilesst.stat.exists
 
-- name: Add symlink for KDE shortcuts (2)
-  become_user: "{{ username }}"
-  ansible.builtin.file:
-    src: ~/.config-files-st/KDE/khotkeysrc
-    dest: ~/.config/khotkeysrc
-    state: link
-    force: yes
-  when: configfilesst.stat.exists
+#- name: Add symlink for KDE shortcuts (2)
+#  become_user: "{{ username }}"
+#  ansible.builtin.file:
+#    src: ~/.config-files-st/KDE/khotkeysrc
+#    dest: ~/.config/khotkeysrc
+#    state: link
+#    force: yes
+#  when: configfilesst.stat.exists
