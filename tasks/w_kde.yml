@@ -9,14 +9,19 @@
   shell: yes | sh /home/{{ username }}/virtual-desktop-bar/scripts/install-dependencies-ubuntu.sh
   when: ansible_facts['os_family'] == 'Debian'
 
-- name: Install/update virtual-desktop-bar dependencies
+- name: Install/update virtual-desktop-bar dependencies (Arch)
   become: yes
   shell: yes | sh /home/{{ username }}/virtual-desktop-bar/scripts/install-dependencies-arch.sh
   when: ansible_facts['os_family'] == 'Archlinux'
+
+- name: Install/update virtual-desktop-bar dependencies (Suse)
+  become: yes
+  shell: yes | sh /home/{{ username }}/virtual-desktop-bar/scripts/install-dependencies-opensuse.sh
+  when: ansible_facts['os_family'] == 'Suse'
 
 - name: Install/update virtual-desktop-bar
   become_user: "{{ username }}"
   shell: ./install-applet.sh
   args:
     chdir: ~/virtual-desktop-bar/scripts/
-  when: ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'Archlinux'
+  when: ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'Archlinux' or ansible_facts['os_family'] == 'Suse'

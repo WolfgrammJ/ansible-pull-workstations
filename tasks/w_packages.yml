@@ -5,10 +5,18 @@
     - "vars/{{ ansible_distribution|lower }}.yml"
     - "vars/{{ ansible_os_family|lower }}.yml"
 
+###############################################################
+# Remmina preparation for Debian
+###############################################################
+
 - name: Add remmina repository from PPA and install its signing key on Ubuntu target
   ansible.builtin.apt_repository:
     repo: ppa:remmina-ppa-team/remmina-next
   when: ansible_facts['os_family'] == 'Debian'
+
+###############################################################
+# Syncthing preparation for Debian
+###############################################################
 
 - name: Add PGP key and repository for syncthing
   become: yes
@@ -16,6 +24,10 @@
     curl -s https://syncthing.net/release-key.txt | sudo apt-key add -
     echo "deb https://apt.syncthing.net/ syncthing stable" | sudo tee /etc/apt/sources.list.d/syncthing.list
   when: ansible_facts['os_family'] == 'Debian'
+
+###############################################################
+# Snap preparation for Suse
+###############################################################
 
 - name: Add snap repo and add its gpg key (Suse)
   community.general.zypper_repository:
@@ -32,10 +44,24 @@
     runrefresh: yes
   when: ansible_facts['os_family'] == 'Suse'
 
+###############################################################
+# Update repositories after adding repos (Debian/Suse)
+###############################################################
+
 - name: Update repositories cache (Debian)
   apt:
     update_cache: yes
   when: ansible_facts['os_family'] == 'Debian'
+
+- name: update repositories (Suse)
+  community.general.zypper_repository:
+    repo: '*'
+    runrefresh: yes
+  when: ansible_facts['os_family'] == 'Suse'
+
+###############################################################
+# Install packages from repos
+###############################################################
 
 - name: Install workstation packages (all Ditros)
   ansible.builtin.package:
@@ -72,18 +98,31 @@
     state: latest
   when: ansible_facts['os_family'] == 'Archlinux'
 
+- name: Install workstation packages (Suse)
+  ansible.builtin.package:
+    name:
+      - autofs
+    state: latest
+  when: ansible_facts['os_family'] == 'Suse'
+
+###############################################################
+# Install additional software
+###############################################################
+
+### TeamViewer (Debian)
 - name: Install TeamViewer (Debian)
   become: yes
   apt:
     deb: https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
   when: ansible_facts['os_family'] == 'Debian'
 
+### TeamViewer (RedHat)
 - name: Install TeamViewer (RedHat)
   become: yes
   dnf:
     name: https://download.teamviewer.com/download/linux/teamviewer.x86_64.rpm
     disable_gpg_check: true
-    state: present
+    state: latest
   when: ansible_facts['os_family'] == 'RedHat'
 
 - name: Remove "failovermethod" from TeamViewer Repository file (RedHat)
@@ -94,6 +133,7 @@
     regex: '^failovermethod='
   when: ansible_facts['os_family'] == 'RedHat'
 
+### TeamViewer (Arch)
 - name: Check if TeamViewer is installed (ARCH)
   stat:
     path: /usr/bin/teamviewer
@@ -145,6 +185,16 @@
     path: /usr/bin/netExtenderGui
   register: netextender
 
+### TeamViewer (Suse)
+- name: Install TeamViewer (Suse)
+  become: yes
+  community.general.zypper:
+    name: https://download.teamviewer.com/download/linux/teamviewer.x86_64.rpm
+    disable_gpg_check: true
+    state: latest
+  when: ansible_facts['os_family'] == 'Suse'
+
+### NetExtender
 - name: Download NetExtender version 10.2.824
   become_user: "{{ username }}"
   get_url:

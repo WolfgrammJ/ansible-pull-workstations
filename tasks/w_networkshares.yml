@@ -1,5 +1,5 @@
 ###################################
-# DEBIAN
+# DEBIAN & SUSE
 ###################################
 - name: Configure autofs "auto.master" for auto.damantec
   become: yes
@@ -7,7 +7,7 @@
     path: /etc/auto.master
     regex: '^/mnt/dmt '
     line: /mnt/dmt /etc/auto.damantec -timeout=0 --ghost
-  when: ansible_facts['os_family'] == 'Debian'
+  when: ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'Suse'
 
 - name: Configure autofs "auto.master" for auto.nasdmt003
   become: yes
@@ -15,21 +15,21 @@
     path: /etc/auto.master
     regex: '^/mnt/NASDMT003 '
     line: /mnt/NASDMT003 /etc/auto.nasdmt003 -timeout=0 --ghost
-  when: ansible_facts['os_family'] == 'Debian'
+  when: ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'Suse'
 
 - name: Copy file auto.damantec for autofs
   become: yes
   ansible.builtin.copy:
     src: files/autofs/auto.damantec
     dest: /etc/auto.damantec
-  when: ansible_facts['os_family'] == 'Debian'
+  when: ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'Suse'
 
 - name: Copy file auto.nasdmt003 for autofs
   become: yes
   ansible.builtin.copy:
     src: files/autofs/auto.nasdmt003
     dest: /etc/auto.nasdmt003
-  when: ansible_facts['os_family'] == 'Debian'
+  when: ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'Suse'
 
 
 ###################################
