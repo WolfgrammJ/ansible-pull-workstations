@@ -17,6 +17,20 @@
     echo "deb https://apt.syncthing.net/ syncthing stable" | sudo tee /etc/apt/sources.list.d/syncthing.list
   when: ansible_facts['os_family'] == 'Debian'
 
+- name: Add snap repo and add its gpg key (Suse)
+  community.general.zypper_repository:
+    repo: 'https://download.opensuse.org/repositories/system:/snappy/openSUSE_Tumbleweed snappy'
+    auto_import_keys: yes
+  when: ansible_facts['os_family'] == 'Suse'
+
+- name: Force refresh of a repository (Suse)
+  community.general.zypper_repository:
+    repo: 'https://download.opensuse.org/repositories/system:/snappy/openSUSE_Tumbleweed'
+    name: snapd
+    state: present
+    runrefresh: yes
+  when: ansible_facts['os_family'] == 'Suse'
+
 - name: Update repositories cache (Debian)
   apt:
     update_cache: yes
@@ -35,6 +49,7 @@
       - dolphin
       - dolphin-plugins
       - kwrite
+      - snapd
     state: latest
 
 - name: Install workstation packages (Debian)
@@ -207,3 +222,21 @@
   ansible.builtin.systemd:
     state: started
     name: syncthing@"{{ username }}"
+
+- name: Enable snapd service (Suse)
+  become: yes
+  ansible.builtin.systemd:
+    daemon_reload: yes
+    state: restarted
+    enabled: yes
+    name: snapd
+  when: ansible_facts['os_family'] == 'Suse'
+
+- name: Enable snapd.apparmor service (Suse)
+  become: yes
+  ansible.builtin.systemd:
+    daemon_reload: yes
+    state: restarted
+    enabled: yes
+    name: snapd.apparmor
+  when: ansible_facts['os_family'] == 'Suse'
