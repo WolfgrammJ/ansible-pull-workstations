@@ -23,9 +23,9 @@
       when: ansible_facts['os_family'] == 'Archlinux'
 
     - name: update repositories (Suse)
-      community.general.zypper:
-        update_cache: yes
-      changed_when: false
+      community.general.zypper_repository:
+        repo: '*'
+        runrefresh: yes
       when: ansible_facts['os_family'] == 'Suse'     
 
   tasks:
