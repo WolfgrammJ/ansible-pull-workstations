@@ -31,4 +31,4 @@
   ansible.builtin.lineinfile:
     path: /home/root/.zshrc
     line: source ~/.aliases
-    state: present
+    create: yes
