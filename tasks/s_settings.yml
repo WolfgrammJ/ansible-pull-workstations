@@ -1,0 +1,28 @@
+- name: Copy ".aliases_server"
+  ansible.builtin.copy:
+    src: files/.aliases_server
+    dest: /home/{{ username }}/.aliases
+    owner: "{{ username }}"
+#    group: "{{ username }}"
+    mode: '744'
+    backup: yes
+
+- name: Copy ".aliases_server" for root
+  asible.builtin.copy:
+    src: files/.aliases_server
+    dest: /home/root/.aliases
+    owner: root
+    mode: 744
+    backup: yes
+
+- name: Adding ".aliases" file to ".zshrc"
+  ansible.builtin.lineinfile:
+    path: /home/{{ username }}/.zshrc
+    line: source ~/.aliases
+    state: present
+
+- name: Adding ".aliases" file to ".zshrc" for root
+  ansible.builtin.lineinfile:
+    path: /home/root/.zshrc
+    line: source ~/.aliases
+    state: present
