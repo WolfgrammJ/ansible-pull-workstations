@@ -1,3 +1,9 @@
+- name: Make sure home directory for root exists
+  ansible.builtin.file:
+    path: /home/root
+    state: directory
+    mode: '0751'
+
 - name: Copy ".aliases_server"
   ansible.builtin.copy:
     src: files/.aliases_server
