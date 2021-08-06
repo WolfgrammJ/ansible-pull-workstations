@@ -1,3 +1,4 @@
 - name: Set timezone
   become: yes
-  raw: timedatectl set-timezone Europe/Berlin
+  timezone:
+    name: Europe/Berlin
