@@ -8,7 +8,7 @@
     backup: yes
 
 - name: Copy ".aliases_server" for root
-  asible.builtin.copy:
+  ansible.builtin.copy:
     src: files/.aliases_server
     dest: /home/root/.aliases
     owner: root
