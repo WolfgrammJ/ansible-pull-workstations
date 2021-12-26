@@ -84,7 +84,7 @@
     name:
       - remmina-plugin-exec
       - remmina-plugin-www
-      - remmina-plugin-nx
+#      - remmina-plugin-nx
       - remmina-plugin-kwallet
       - autofs
     state: latest
