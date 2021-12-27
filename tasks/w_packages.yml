@@ -267,12 +267,14 @@
     state: restarted
     enabled: yes
     name: syncthing@"{{ username }}"
+  ignore_errors: yes
 
 - name: Start syncthing service explicitly
   become: yes
   ansible.builtin.systemd:
     state: started
     name: syncthing@"{{ username }}"
+  ignore_errors: yes
 
 - name: Enable snapd service (Suse)
   become: yes
