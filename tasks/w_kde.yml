@@ -26,7 +26,7 @@
     chdir: ~/virtual-desktop-bar/scripts/
   when: ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'Archlinux' or ansible_facts['os_family'] == 'Suse'
 
-# latte-dock
+# latte-dock (Redhat)
 - name: Install latte-dock
   become: yes
   dnf:
@@ -34,7 +34,7 @@
     state: latest
   when: ansible_facts['os_family'] == 'RedHat'
 
-# RPM Fusion
+# RPM Fusion (Fedora)
 - name: Install RPM Fusion (1/2)
   become: yes
   dnf:
@@ -49,4 +49,12 @@
     name: 'https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ansible_distribution_major_version}}.noarch.rpm'
     state: present
     disable_gpg_check: yes
+  when: ansible_facts['os_family'] == 'RedHat' and ansible_distribution == 'Fedora'
+
+# Kate (Fedora)
+- name: Install Kate
+  become: yes
+  dnf:
+    name: kate
+    state: latest
   when: ansible_facts['os_family'] == 'RedHat' and ansible_distribution == 'Fedora'

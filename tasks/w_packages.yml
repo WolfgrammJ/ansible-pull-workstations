@@ -105,6 +105,13 @@
     state: latest
   when: ansible_facts['os_family'] == 'Suse'
 
+- name: Install workstation packages (RedHat)
+  ansible.builtin.package:
+    name:
+      - autofs
+    state: latest
+  when: ansible_facts['os_family'] == 'RedHat'
+
 ###############################################################
 # Install additional software
 ###############################################################
