@@ -25,3 +25,10 @@
   args:
     chdir: ~/virtual-desktop-bar/scripts/
   when: ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'Archlinux' or ansible_facts['os_family'] == 'Suse'
+
+# latte-dock
+- name: Install latte-dock
+  become: yes
+  dnf:
+    name: latte-dock
+    state: latest
