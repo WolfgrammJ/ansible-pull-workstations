@@ -45,6 +45,15 @@
   when: ansible_facts['os_family'] == 'Suse'
 
 ###############################################################
+# Adding Repositories for Fedora
+###############################################################
+
+- name: Adding Vivaldi Repository
+  become: yes
+  shell: dnf config-manager --add-repo https://repo.vivaldi.com/archive/vivaldi-fedora.repo
+  when: ansible_distribution == 'Fedora'
+
+###############################################################
 # Update repositories after adding repos (Debian/Suse)
 ###############################################################
 
@@ -109,6 +118,7 @@
   ansible.builtin.package:
     name:
       - autofs
+      - dnf-utils
     state: latest
   when: ansible_facts['os_family'] == 'RedHat'
 
