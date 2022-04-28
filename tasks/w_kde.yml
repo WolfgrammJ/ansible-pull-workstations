@@ -4,6 +4,11 @@
     repo: https://github.com/wsdfhjxc/virtual-desktop-bar.git
     dest: ~/virtual-desktop-bar
 
+- name: Install/update virtual-desktop-bar dependencies (Fedora)
+  become: yes
+  shell: yes | sh /home/{{ username }}/virtual-desktop-bar/scripts/install-dependencies-fedora.sh
+  when: ansible_distribution == 'Fedora'
+
 - name: Install/update virtual-desktop-bar dependencies (Debian)
   become: yes
   shell: yes | sh /home/{{ username }}/virtual-desktop-bar/scripts/install-dependencies-ubuntu.sh
@@ -24,7 +29,7 @@
   shell: ./install-applet.sh
   args:
     chdir: ~/virtual-desktop-bar/scripts/
-  when: ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'Archlinux' or ansible_facts['os_family'] == 'Suse'
+  when: ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'Archlinux' or ansible_facts['os_family'] == 'Suse' or ansible_distribution == 'Fedora'
 
 # latte-dock (Redhat)
 - name: Install latte-dock
