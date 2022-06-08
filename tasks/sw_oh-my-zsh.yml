@@ -45,6 +45,10 @@
       - python
       - python3
     state: present
+  ignore_errors: yes
+#
+# The above needs adaption. "ignore_errors" was added bc Ubuntu 22.04 doesn't have a package named "python"
+#
 
 - name: Clone git repo "autojump"
   become_user: "{{ username }}"
