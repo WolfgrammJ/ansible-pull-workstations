@@ -1,0 +1,43 @@
+- hosts: localhost
+  vars:
+    username: jens
+  become: true
+  pre_tasks:
+    - name: update repositories (Debian)
+      apt:
+        update_cache: yes
+        allow_unauthenticated: yes
+      changed_when: false
+      when: ansible_facts['os_family'] == 'Debian'
+
+    - name: update repositories (RedHat)
+      dnf:
+        update_cache: yes
+      changed_when: false
+      when: ansible_facts['os_family'] == 'RedHat'
+
+    - name: update respositories (Arch)
+      community.general.pacman:
+        update_cache: yes
+      changed_when: false
+      when: ansible_facts['os_family'] == 'Archlinux'
+
+    - name: update repositories (Suse)
+      community.general.zypper_repository:
+        repo: '*'
+        runrefresh: yes
+      when: ansible_facts['os_family'] == 'Suse'     
+
+  tasks:
+    - include: tasks/users.yml
+    - include: tasks/sw_settings.yml
+    - include: tasks/sw_packages.yml
+    - include: tasks/w_packages.yml
+    - include: tasks/w_cron.yml
+#    - include: tasks/w_gnome.yml
+    - include: tasks/sw_oh-my-zsh.yml
+    - include: tasks/w_settings.yml
+    - include: tasks/w_kde.yml
+    - include: tasks/w_config-files-st.yml
+    - include: tasks/w_networkshares.yml
+
