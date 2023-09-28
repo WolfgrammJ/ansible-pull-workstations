@@ -13,7 +13,7 @@
     - include: tasks/users.yml
     - include: tasks/sw_settings.yml
     - include: tasks/sw_packages.yml
-    - include: tasks/w_packages.yml
+    - include: tasks/kali_packages.yml
     - include: tasks/kali_cron.yml
 #    - include: tasks/w_gnome.yml
 #    - include: tasks/sw_oh-my-zsh.yml
