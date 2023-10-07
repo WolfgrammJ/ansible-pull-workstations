@@ -45,6 +45,7 @@
       - dolphin-plugins
       - kwrite
 #      - snapd
+      - vscode
     state: latest
 
 - name: Install workstation packages (Debian)
