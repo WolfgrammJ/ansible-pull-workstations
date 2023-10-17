@@ -16,7 +16,7 @@
     - include: tasks/kali_packages.yml
     - include: tasks/kali_cron.yml
 #    - include: tasks/w_gnome.yml
-#    - include: tasks/sw_oh-my-zsh.yml
+    - include: tasks/sw_oh-my-zsh.yml
     - include: tasks/w_settings.yml
     - include: tasks/w_kde.yml
     - include: tasks/w_config-files-st.yml
