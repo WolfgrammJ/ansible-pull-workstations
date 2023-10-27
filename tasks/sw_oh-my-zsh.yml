@@ -115,7 +115,7 @@
   become_user: "{{ username }}"
   ansible.builtin.git:
     repo: https://github.com/jhwohlgemuth/zsh-pentest.git
-    dest: ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-pentest
+    dest: "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-pentest"
 
 - name: Set omz plugins in .zshrc
   become_user: "{{ username }}"
