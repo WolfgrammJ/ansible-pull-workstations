@@ -111,12 +111,18 @@
     path: ~/.zshrc
     line: "POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true"
 
+- name: Clone git repo "zsh-pentest"
+  become_user: "{{ username }}"
+  ansible.builtin.git:
+    repo: https://github.com/jhwohlgemuth/zsh-pentest.git
+    dest: ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-pentest
+
 - name: Set omz plugins in .zshrc
   become_user: "{{ username }}"
   ansible.builtin.lineinfile:
     path: ~/.zshrc
     regexp: '^plugins='
-    line: "plugins=(zsh-autosuggestions git docker docker-compose autojump zsh-syntax-highlighting dnf npm)"
+    line: "plugins=(zsh-autosuggestions git docker docker-compose autojump zsh-syntax-highlighting dnf npm zsh-pentest)"
 
 - name: Add autojump to .zshrc
   become_user: "{{ username }}"
