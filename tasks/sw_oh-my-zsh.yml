@@ -124,6 +124,12 @@
     dest: ~/.oh-my-zsh/custom/plugins/nmap.plugin.zsh
     mode: '0777'
 
+- name: Clone git repo "quiver"
+  become_user: "{{ username }}"
+  ansible.builtin.git:
+    repo: https://github.com/stevemcilwain/quiver.git
+    dest: ~/.oh-my-zsh/custom/plugins/quiver
+
 - name: Set omz plugins in .zshrc
   become_user: "{{ username }}"
   ansible.builtin.lineinfile:
