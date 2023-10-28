@@ -130,6 +130,10 @@
     repo: https://github.com/stevemcilwain/quiver.git
     dest: ~/.oh-my-zsh/custom/plugins/quiver
 
+- name: Install quiver dependencies
+  become_user: "{{ username }}"
+  shell: source ~/.zshrc && qq-install-all
+
 - name: Set omz plugins in .zshrc
   become_user: "{{ username }}"
   ansible.builtin.lineinfile:
