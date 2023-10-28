@@ -135,7 +135,7 @@
   ansible.builtin.lineinfile:
     path: ~/.zshrc
     regexp: '^plugins='
-    line: "plugins=(zsh-autosuggestions git docker docker-compose autojump zsh-syntax-highlighting dnf npm zsh-pentest nmap)"
+    line: "plugins=(zsh-autosuggestions git docker docker-compose autojump zsh-syntax-highlighting dnf npm zsh-pentest nmap quiver)"
 
 - name: Add autojump to .zshrc
   become_user: "{{ username }}"
