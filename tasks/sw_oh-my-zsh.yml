@@ -117,12 +117,19 @@
     repo: https://github.com/jhwohlgemuth/zsh-pentest.git
     dest: ~/.oh-my-zsh/custom/plugins/zsh-pentest
 
+- name: Download OMZ-Plugin "nmap" by Ciachoand mcornella
+  become_user: "{{ username }}"
+  get_url:
+    url: https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/nmap/nmap.plugin.zsh
+    dest: ~/.oh-my-zsh/custom/plugins/nmap.plugin.zsh
+    mode: '0777'
+
 - name: Set omz plugins in .zshrc
   become_user: "{{ username }}"
   ansible.builtin.lineinfile:
     path: ~/.zshrc
     regexp: '^plugins='
-    line: "plugins=(zsh-autosuggestions git docker docker-compose autojump zsh-syntax-highlighting dnf npm zsh-pentest)"
+    line: "plugins=(zsh-autosuggestions git docker docker-compose autojump zsh-syntax-highlighting dnf npm zsh-pentest nmap)"
 
 - name: Add autojump to .zshrc
   become_user: "{{ username }}"
