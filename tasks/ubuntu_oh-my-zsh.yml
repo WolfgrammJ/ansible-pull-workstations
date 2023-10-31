@@ -1,0 +1,150 @@
+- name: make ZSH default shell for user
+  ansible.builtin.user:
+    name: "{{ username }}"
+    shell: "/usr/bin/zsh"
+
+- name: make ZSH default shell for root
+  ansible.builtin.user:
+    name: "root"
+    shell: "/usr/bin/zsh"
+
+
+- name: Check if directory "~/.oh-my-zsh" exists
+  stat:
+    path: /home/{{ username }}/.oh-my-zsh
+  register: omz
+
+- name: Download install-script for oh-my-zsh
+  become_user: "{{ username }}"
+  get_url:
+    url: https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
+    dest: ~/install-oh-my-zsh.sh
+    mode: '0777'
+  when: not omz.stat.exists
+
+- name: Install Oh-my-zsh
+  become_user: "{{ username }}"
+  shell: ~/install-oh-my-zsh.sh
+  when: not omz.stat.exists
+
+- name: Delete install-script for oh-my-zsh
+  become_user: "{{ username }}"
+  ansible.builtin.file:
+    path: ~/install-oh-my-zsh.sh
+    state: absent
+
+- name: Clone git repo "zsh-autosuggestions"
+  become_user: "{{ username }}"
+  ansible.builtin.git:
+    repo: https://github.com/zsh-users/zsh-autosuggestions
+    dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+
+- name: Clone git repo "zsh-syntax-highlighting"
+  become_user: "{{ username }}"
+  ansible.builtin.git:
+    repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+    dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+
+- name: Install requirements for autojump
+  ansible.builtin.package:
+    name:
+      - python3
+    state: present
+  ignore_errors: yes
+#
+# The above needs adaption. "ignore_errors" was added bc Ubuntu 22.04 doesn't have a package named "python"
+#
+
+- name: Clone git repo "autojump"
+  become_user: "{{ username }}"
+  ansible.builtin.git:
+    repo: http://github.com/wting/autojump.git
+    dest: ~/autojump
+
+- name: Install autojump
+  become_user: "{{ username }}"
+  shell: python ~/autojump/install.py
+  args:
+    chdir: ~/autojump/
+
+- name: Delete autojump installation directory
+  become_user: "{{ username }}"
+  ansible.builtin.file:
+    path: ~/autojump
+    state: absent
+
+- name: Add autojump to .zshrc - part 1
+  become_user: "{{ username }}"
+  ansible.builtin.lineinfile:
+    path: ~/.zshrc
+    regexp: '^\[\[ -s /home/{{ username }}/.autojump'
+    line: "[[ -s /home/{{ username }}/.autojump/etc/profile.d/autojump.sh ]] && source /home/{{ username }}/.autojump/etc/profile.d/autojump.sh"
+
+- name: Add autojump to .zshrc - part 2
+  become_user: "{{ username }}"
+  ansible.builtin.lineinfile:
+    path: ~/.zshrc
+    line: "autoload -U compinit && compinit -u"
+
+- name: Clone git repo "powerlevel10k"
+  become_user: "{{ username }}"
+  ansible.builtin.git:
+    repo: https://github.com/romkatv/powerlevel10k.git
+    dest: ~/.oh-my-zsh/custom/themes/powerlevel10k
+    depth: 1
+
+- name: Copy fonts
+  ansible.builtin.copy:
+    src: files/fonts/
+    dest: /home/{{ username }}/.fonts/
+
+- name: Copy .p10k.zsh
+  ansible.builtin.copy:
+    src: files/.p10k.zsh
+    dest: /home/{{ username }}
+    backup: yes
+
+- name: Add .p10k.zsg to .zshrc
+  become_user: "{{ username }}"
+  ansible.builtin.lineinfile:
+    path: ~/.zshrc
+    line: "source ~/.p10k.zsh"
+
+- name: Disable powelevel10k configuration wizard in .zshrc
+  become_user: "{{ username }}"
+  ansible.builtin.lineinfile:
+    path: ~/.zshrc
+    line: "POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true"
+
+- name: Clone git repo "zsh-pentest"
+  become_user: "{{ username }}"
+  ansible.builtin.git:
+    repo: https://github.com/jhwohlgemuth/zsh-pentest.git
+    dest: ~/.oh-my-zsh/custom/plugins/zsh-pentest
+
+- name: Download OMZ-Plugin "nmap" by Ciachoand mcornella
+  become_user: "{{ username }}"
+  get_url:
+    url: https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/nmap/nmap.plugin.zsh
+    dest: ~/.oh-my-zsh/custom/plugins/nmap.plugin.zsh
+    mode: '0777'
+
+- name: Clone git repo "quiver"
+  become_user: "{{ username }}"
+  ansible.builtin.git:
+    repo: https://github.com/stevemcilwain/quiver.git
+    dest: ~/.oh-my-zsh/custom/plugins/quiver
+
+- name: Set omz plugins in .zshrc
+  become_user: "{{ username }}"
+  ansible.builtin.lineinfile:
+    path: ~/.zshrc
+    regexp: '^plugins='
+    line: "plugins=(zsh-autosuggestions git docker docker-compose autojump zsh-syntax-highlighting dnf npm zsh-pentest nmap quiver)"
+
+- name: Add autojump to .zshrc
+  become_user: "{{ username }}"
+  ansible.builtin.lineinfile:
+    path: ~/.zshrc
+    regexp: '^ZSH_THEME='
+    line: "ZSH_THEME=\"powerlevel10k/powerlevel10k\""
