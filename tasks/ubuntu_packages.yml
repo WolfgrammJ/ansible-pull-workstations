@@ -61,14 +61,14 @@
     daemon_reload: yes
     state: restarted
     enabled: yes
-    name: syncthing@"{{ username }}".service
+    name: syncthing@ansible.service
   ignore_errors: yes
 
 - name: Start syncthing service explicitly
   become: yes
   ansible.builtin.systemd:
     state: started
-    name: syncthing@"{{ username }}".service
+    name: syncthing@"ansible.service
   ignore_errors: yes
 
 
@@ -78,27 +78,27 @@
 - name: Configure tmux local
   ansible.builtin.copy:
     src: files/.tmux.conf
-    dest: /home/{{ username }}/.tmux.conf
-    owner: "{{ username }}"
+    dest: /home/{{ username.stdout }}/.tmux.conf
+    owner: "{{ username.stdout }}"
 #    group: "{{ username }}"
     backup: yes
 
 - name: Configure tmux remote
   ansible.builtin.copy:
     src: files/.tmux.remote.conf
-    dest: /home/{{ username }}/.tmux.remote.conf
-    owner: "{{ username }}"
+    dest: /home/{{ username.stdout }}/.tmux.remote.conf
+    owner: "{{ username.stdout }}"
 #    group: "{{ username }}"
     backup: yes
 
 - name: Clone tmux plugin-manager git-repository
-  become_user: "{{ username }}"
+  become_user: "{{ username.stdout }}"
   ansible.builtin.git:
     repo: https://github.com/tmux-plugins/tpm
     dest: ~/.tmux/plugins/tpm
 
 - name: Install tmux-plugins
-  become_user: "{{ username }}"
+  become_user: "{{ username.stdout }}"
   raw: |
     tmux new -d -s __noop >/dev/null 2>&1 || true 
     tmux set-environment -g TMUX_PLUGIN_MANAGER_PATH "~/.tmux/plugins"
@@ -112,7 +112,7 @@
 #- name: Copy backup-home-dir.sh
 #  ansible.builtin.copy:
 #    src: files/backup-home-dir.sh
-#    dest: /home/{{ username }}/backup-home-dir.sh
+#    dest: /home/{{ username.stdout }}/backup-home-dir.sh
 #    owner: "{{ username }}"
 ##    group: "{{ username }}"
 #    backup: yes
@@ -136,31 +136,31 @@
 
 ### NetExtender: Installation and permissions
 - name: Download NetExtender version 10.2.824
-  become_user: "{{ username }}"
+  become_user: "{{ username.stdout }}"
   get_url:
     url: https://software.sonicwall.com/NetExtender/NetExtender.Linux-10.2.845.x86_64.tgz
     dest: /home/{{ username }}/NetExtender.Linux.tgz
   when: not netextender.stat.exists
 
 - name: Extract NetExtender archive
-  become_user: "{{ username }}"
+  become_user: "{{ username.stdout }}"
   ansible.builtin.unarchive:
-    src: /home/{{ username }}/NetExtender.Linux.tgz
-    dest: /home/{{ username }}/
+    src: /home/{{ username.stdout }}/NetExtender.Linux.tgz
+    dest: /home/{{ username.stdout }}/
   when: not netextender.stat.exists
 
 - name: Install NetExtender
   become: yes
   shell: ./install
   args:
-    chdir: /home/{{ username }}/netExtenderClient/
+    chdir: /home/{{ username.stdout }}/netExtenderClient/
     creates: /usr/bin/netExtenderGui
   when: not netextender.stat.exists
 
 - name: Delete Netextender installation files
   become: yes
   ansible.builtin.file:
-    path: /home/{{ username }}/NetExtender.Linux.tgz
+    path: /home/{{ username.stdout }}/NetExtender.Linux.tgz
     state: absent
 
 - name: Set NetExtender Permissions 1
@@ -189,5 +189,5 @@
 
 - name: Remove NetExtender directory
   ansible.builtin.file:
-    path: /home/{{ username }}/netExtenderClient/
+    path: /home/{{ username.stdout }}/netExtenderClient/
     state: absent
