@@ -1,6 +1,6 @@
 - hosts: localhost
   vars:
-    username: ansible_facts['ansible_user_id']
+    username: ansible_distribution == 'Ubuntu'
   become: true
   pre_tasks:
     - name: update repositories (Ubuntu)
@@ -12,11 +12,11 @@
 
   tasks:
     - include: tasks/users.yml
-      when: ansible_facts['ansible_distribution'] == 'Ubuntu'
+      when: ansible_distribution == 'Ubuntu'
     - include: tasks/ubuntu_settings.yml
-      when: ansible_facts['ansible_distribution'] == 'Ubuntu'
+      when: ansible_distribution == 'Ubuntu'
     - include: tasks/ubuntu_packages.yml
-      when: ansible_facts['ansible_distribution'] == 'Ubuntu'
+      when: ansible_distribution == 'Ubuntu'
 
 #    - include: tasks/w_cron.yml
 #    - include: tasks/sw_oh-my-zsh.yml
