@@ -8,21 +8,6 @@
 
 
 ###############################################################
-# Syncthing preparation (Ubuntu)
-###############################################################
-- name: Add PGP key and repository for syncthing (Ubuntu)
-  become: yes
-  raw: |
-    curl -o /usr/share/keyrings/syncthing-archive-keyring.gpg https://syncthing.net/release-key.gpg
-    echo "deb [signed-by=/usr/share/keyrings/syncthing-archive-keyring.gpg] https://apt.syncthing.net/ syncthing stable" | sudo tee /etc/apt/sources.list.d/syncthing.list
-
-- name: Update repositories cache (Ubuntu)
-  apt:
-    update_cache: yes
-    allow_unauthenticated: yes
-
-
-###############################################################
 # Package Installation from Repos
 ###############################################################
 - name: Install packages
@@ -48,8 +33,24 @@
       - cifs-utils
       - kwrite
       - autofs
+      - curl
     state: latest
 
+
+###############################################################
+# Syncthing preparation (Ubuntu)
+# Needs to run after curl is installed
+###############################################################
+- name: Add PGP key and repository for syncthing (Ubuntu)
+  become: yes
+  raw: |
+    curl -o /usr/share/keyrings/syncthing-archive-keyring.gpg https://syncthing.net/release-key.gpg
+    echo "deb [signed-by=/usr/share/keyrings/syncthing-archive-keyring.gpg] https://apt.syncthing.net/ syncthing stable" | sudo tee /etc/apt/sources.list.d/syncthing.list
+
+- name: Update repositories cache (Ubuntu)
+  apt:
+    update_cache: yes
+    allow_unauthenticated: yes
 
 ##################################################
 # Syncthing: Set up system service
