@@ -1,6 +1,6 @@
 - hosts: localhost
-  vars:
-    username: ansible_user_id
+#  vars:
+#     username: ansible_user_id
   become: true
   pre_tasks:
     - name: update repositories (Ubuntu)
@@ -11,6 +11,10 @@
       when: ansible_distribution == 'Ubuntu'
 
   tasks:
+    - name: get the username running the deploy
+      become: false
+      local_action: command whoami
+      register: username
     - include: tasks/users.yml
       when: ansible_distribution == 'Ubuntu'
     - include: tasks/ubuntu_settings.yml
