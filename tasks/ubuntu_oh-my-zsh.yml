@@ -1,13 +1,8 @@
 - name: make ZSH default shell for user
+  become_user: "{{ uname }}"
   ansible.builtin.user:
     name: "{{ uname }}"
     shell: "/usr/bin/zsh"
-
-- name: make ZSH default shell for root
-  ansible.builtin.user:
-    name: "root"
-    shell: "/usr/bin/zsh"
-
 
 - name: Check if directory "~/.oh-my-zsh" exists
   become_user: "{{ uname }}"
