@@ -1,0 +1,190 @@
+###############################################################
+# Remmina preparation (Ubuntu)
+###############################################################
+- name: Add remmina repository from PPA and install its signing key on Ubuntu target
+  ansible.builtin.apt_repository:
+    repo: ppa:remmina-ppa-team/remmina-next
+
+
+###############################################################
+# Syncthing preparation (Ubuntu)
+###############################################################
+- name: Add PGP key and repository for syncthing (Ubuntu)
+  become: yes
+  raw: |
+    curl -o /usr/share/keyrings/syncthing-archive-keyring.gpg https://syncthing.net/release-key.gpg
+    echo "deb [signed-by=/usr/share/keyrings/syncthing-archive-keyring.gpg] https://apt.syncthing.net/ syncthing stable" | sudo tee /etc/apt/sources.list.d/syncthing.list
+
+- name: Update repositories cache (Ubuntu)
+  apt:
+    update_cache: yes
+
+
+###############################################################
+# Package Installation from Repos
+###############################################################
+- name: Install packages
+  ansible.builtin.package:
+    name:
+      - htop
+      - mc
+      - neofetch
+      - tmux
+      - zsh
+      - remmina
+      - remmina-plugin-exec
+      - remmina-plugin-www
+#      - remmina-plugin-nx
+      - remmina-plugin-kwallet
+      - syncthing
+      - default-jre
+      - freerdp2-x11
+      - smbclient
+      - dolphin-nextcloud
+      - dolphin-plugin
+      - terminator
+      - cifs-utils
+      - kwrite
+      - autofs
+    state: latest
+
+
+##################################################
+# Syncthing: Set up system service
+##################################################
+- name: Enabling syncthing service
+  become: yes
+  ansible.builtin.systemd:
+    daemon_reload: yes
+    state: restarted
+    enabled: yes
+    name: syncthing@"{{ username }}".service
+  ignore_errors: yes
+
+- name: Start syncthing service explicitly
+  become: yes
+  ansible.builtin.systemd:
+    state: started
+    name: syncthing@"{{ username }}".service
+  ignore_errors: yes
+
+
+##################################################
+# Configuring "TMUX"
+##################################################
+- name: Configure tmux local
+  ansible.builtin.copy:
+    src: files/.tmux.conf
+    dest: /home/{{ username }}/.tmux.conf
+    owner: "{{ username }}"
+#    group: "{{ username }}"
+    backup: yes
+
+- name: Configure tmux remote
+  ansible.builtin.copy:
+    src: files/.tmux.remote.conf
+    dest: /home/{{ username }}/.tmux.remote.conf
+    owner: "{{ username }}"
+#    group: "{{ username }}"
+    backup: yes
+
+- name: Clone tmux plugin-manager git-repository
+  become_user: "{{ username }}"
+  ansible.builtin.git:
+    repo: https://github.com/tmux-plugins/tpm
+    dest: ~/.tmux/plugins/tpm
+
+- name: Install tmux-plugins
+  become_user: "{{ username }}"
+  raw: |
+    tmux new -d -s __noop >/dev/null 2>&1 || true 
+    tmux set-environment -g TMUX_PLUGIN_MANAGER_PATH "~/.tmux/plugins"
+    "$HOME"/.tmux/plugins/tpm/bin/install_plugins || true
+    tmux kill-session -t __noop >/dev/null 2>&1 || true
+
+
+##################################################
+# Copy Backup-Script for Home Directory
+##################################################
+#- name: Copy backup-home-dir.sh
+#  ansible.builtin.copy:
+#    src: files/backup-home-dir.sh
+#    dest: /home/{{ username }}/backup-home-dir.sh
+#    owner: "{{ username }}"
+##    group: "{{ username }}"
+#    backup: yes
+
+
+###############################################################
+# Install additional software
+###############################################################
+
+### TeamViewer (Ubuntu)
+- name: Install TeamViewer (Ubuntu)
+  become: yes
+  apt:
+    deb: https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
+
+### Netextender: check if installed and register var
+- name: Check if NetExtender is installed
+  stat:
+    path: /usr/bin/netExtenderGui
+  register: netextender
+
+### NetExtender: Installation and permissions
+- name: Download NetExtender version 10.2.824
+  become_user: "{{ username }}"
+  get_url:
+    url: https://software.sonicwall.com/NetExtender/NetExtender.Linux-10.2.845.x86_64.tgz
+    dest: /home/{{ username }}/NetExtender.Linux.tgz
+  when: not netextender.stat.exists
+
+- name: Extract NetExtender archive
+  become_user: "{{ username }}"
+  ansible.builtin.unarchive:
+    src: /home/{{ username }}/NetExtender.Linux.tgz
+    dest: /home/{{ username }}/
+  when: not netextender.stat.exists
+
+- name: Install NetExtender
+  become: yes
+  shell: ./install
+  args:
+    chdir: /home/{{ username }}/netExtenderClient/
+    creates: /usr/bin/netExtenderGui
+  when: not netextender.stat.exists
+
+- name: Delete Netextender installation files
+  become: yes
+  ansible.builtin.file:
+    path: /home/{{ username }}/NetExtender.Linux.tgz
+    state: absent
+
+- name: Set NetExtender Permissions 1
+  ansible.builtin.file:
+    path: /usr/sbin/pppd
+    state: file
+    mode: '4755'
+
+- name: Set NetExtender Permissions 2
+  ansible.builtin.file:
+    path: /etc/ppp/peers
+    state: directory
+    mode: '2755'
+
+- name: Set NetExtender Permissions 3 (Ubuntu)
+  ansible.builtin.file:
+    path: /etc/ppp/peers/provider
+    state: file
+    mode: '0644'
+
+- name: Set NetExtender Permissions4
+  ansible.builtin.file:
+    path: /etc/ppp/peers
+    state: directory
+    mode: '2755'
+
+- name: Remove NetExtender directory
+  ansible.builtin.file:
+    path: /home/{{ username }}/netExtenderClient/
+    state: absent
