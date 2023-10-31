@@ -29,6 +29,9 @@
     - include_tasks: tasks/ubuntu_oh-my-zsh.yml
       vars:
         uname: username.stdout
+    - include_tasks: tasks/ubuntu_oh-my-zsh.yml
+      vars:
+        uname: root
 #    - include: tasks/w_kde.yml
 #    - include: tasks/w_config-files-st.yml
 #    - include: tasks/w_networkshares.yml
