@@ -26,7 +26,9 @@
 
     - include: tasks/w_cron.yml
       when: ansible_distribution == 'Ubuntu'
-    - include: tasks/sw_oh-my-zsh.yml --extra-vars "username={{ username.stdout }}"
+    - include: tasks/sw_oh-my-zsh.yml
+      vars:
+        username: "{{ username.stdout }}"
 #    - include: tasks/w_kde.yml
 #    - include: tasks/w_config-files-st.yml
 #    - include: tasks/w_networkshares.yml
