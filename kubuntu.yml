@@ -16,7 +16,7 @@
       local_action: command whoami
       register: username
     - name: Debug
-      debug: var={{ ansible_user }}
+      debug: var=username.stdout
     - include: tasks/users.yml
       when: ansible_distribution == 'Ubuntu'
     - include: tasks/ubuntu_settings.yml
