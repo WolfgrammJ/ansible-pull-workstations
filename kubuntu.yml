@@ -8,7 +8,7 @@
         update_cache: yes
         allow_unauthenticated: yes
       changed_when: false
-      when: ansible_facts['ansible_distribution'] == 'Ubuntu'
+      when: ansible_distribution == 'Ubuntu'
 
   tasks:
     - include: tasks/users.yml
