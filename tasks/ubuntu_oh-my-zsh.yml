@@ -10,8 +10,9 @@
 
 
 - name: Check if directory "~/.oh-my-zsh" exists
+  become_user: "{{ uname }}"
   stat:
-    path: /home/{{ uname }}/.oh-my-zsh
+    path: ~/.oh-my-zsh
   register: omz
 
 - name: Download install-script for oh-my-zsh
