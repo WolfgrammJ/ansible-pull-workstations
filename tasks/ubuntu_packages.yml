@@ -135,11 +135,11 @@
   register: netextender
 
 ### NetExtender: Installation and permissions
-- name: Download NetExtender version 10.2.824
+- name: Download NetExtender version 10.2.845
   become_user: "{{ username.stdout }}"
   get_url:
     url: https://software.sonicwall.com/NetExtender/NetExtender.Linux-10.2.845.x86_64.tgz
-    dest: /home/{{ username }}/NetExtender.Linux.tgz
+    dest: /home/{{ username.stdout }}/NetExtender.Linux.tgz
   when: not netextender.stat.exists
 
 - name: Extract NetExtender archive
