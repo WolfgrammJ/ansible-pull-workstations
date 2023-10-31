@@ -63,7 +63,7 @@
 
 - name: Install autojump
   become_user: "{{ uname }}"
-  shell: python ~/autojump/install.py
+  shell: python3 ~/autojump/install.py
   args:
     chdir: ~/autojump/
 
