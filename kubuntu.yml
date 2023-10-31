@@ -7,6 +7,7 @@
       apt:
         update_cache: yes
         allow_unauthenticated: yes
+        validate_certs: false
       changed_when: false
       when: ansible_distribution == 'Ubuntu'
 
