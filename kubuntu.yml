@@ -1,6 +1,6 @@
 - hosts: localhost
   vars:
-    username: ansible_user_id
+    username: ansible_facts["ansible_user_id"]
   become: true
   pre_tasks:
     - name: update repositories (Ubuntu)
