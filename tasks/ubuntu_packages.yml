@@ -19,6 +19,7 @@
 - name: Update repositories cache (Ubuntu)
   apt:
     update_cache: yes
+    allow_unauthenticated: yes
 
 
 ###############################################################
