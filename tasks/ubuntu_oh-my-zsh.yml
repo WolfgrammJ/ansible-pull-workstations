@@ -1,3 +1,5 @@
+- name: Debug
+      debug: var=uname
 - name: make ZSH default shell for user
   become_user: "{{ uname }}"
   become: yes
