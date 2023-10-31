@@ -1,6 +1,3 @@
-- name: Debug
-  debug: var=ansible_user_id
-
 ###############################################################
 # Remmina preparation (Ubuntu)
 # !!!Repository currently not maintained!!!
