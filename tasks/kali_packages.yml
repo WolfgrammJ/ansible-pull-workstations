@@ -21,7 +21,7 @@
 # VSCode preparation for Debian
 ###############################################################
 
-- name: Add PGP key and repository for syncthing
+- name: Add PGP key and repository for VSCode
   become: yes
   raw: |
     wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
