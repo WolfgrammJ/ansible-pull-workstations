@@ -34,6 +34,7 @@
       - kwrite
       - autofs
       - curl
+      - piper #for mouse configuration
     state: latest
 
 
