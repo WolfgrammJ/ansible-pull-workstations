@@ -1,6 +1,6 @@
 - name: install cron job (ansible-pull)
 #  cron: user="ansible" name="ansible provision" minute="*/10" job="sudo /usr/bin/ansible-pull --vault-password-file ~/.ansible-vault.pwd -o -U https://github.com/WolfgrammJ/ansible-pull.git kubuntu.yml > /dev/null"
-  ansible_builtin.cron:
+  ansible.builtin.cron:
     name: "ansible provision"
     user: "ansible"
     minute: "10"
