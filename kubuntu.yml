@@ -17,16 +17,16 @@
       register: username
     - name: Debug
       debug: var=username.stdout
-    - include: tasks/users.yml
+    - include-tasks: tasks/users.yml
       when: ansible_distribution == 'Ubuntu'
-    - include: tasks/ubuntu_settings.yml
+    - include-tasks: tasks/ubuntu_settings.yml
       when: ansible_distribution == 'Ubuntu'
-    - include: tasks/ubuntu_packages.yml
+    - include-tasks: tasks/ubuntu_packages.yml
       when: ansible_distribution == 'Ubuntu'
 
-    - include: tasks/ubuntu_cron.yml
+    - include-tasks: tasks/ubuntu_cron.yml
       when: ansible_distribution == 'Ubuntu'
-    - include: tasks/ubuntu_oh-my-zsh.yml
+    - include-tasks: tasks/ubuntu_oh-my-zsh.yml
       vars:
         uname: username.stdout
 #    - include: tasks/w_kde.yml
