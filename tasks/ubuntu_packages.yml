@@ -1,9 +1,10 @@
 ###############################################################
 # Remmina preparation (Ubuntu)
+# !!!Repository currently not maintained!!!
 ###############################################################
-- name: Add remmina repository from PPA and install its signing key on Ubuntu target
-  ansible.builtin.apt_repository:
-    repo: ppa:remmina-ppa-team/remmina-next
+#- name: Add remmina repository from PPA and install its signing key on Ubuntu target
+#  ansible.builtin.apt_repository:
+#    repo: ppa:remmina-ppa-team/remmina-next
 
 
 ###############################################################
