@@ -24,9 +24,9 @@
     - include: tasks/ubuntu_packages.yml
       when: ansible_distribution == 'Ubuntu'
 
-    - include: tasks/w_cron.yml
+    - include: tasks/ubuntu_cron.yml
       when: ansible_distribution == 'Ubuntu'
-    - include: tasks/sw_oh-my-zsh.yml
+    - include: tasks/ubuntu_oh-my-zsh.yml
       vars:
         username: "{{ username.stdout }}"
 #    - include: tasks/w_kde.yml
