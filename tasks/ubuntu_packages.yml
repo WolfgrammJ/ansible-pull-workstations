@@ -35,6 +35,7 @@
       - autofs
       - curl
       - piper #for mouse configuration
+      - gimp
     state: latest
 
 
