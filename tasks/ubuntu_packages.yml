@@ -28,7 +28,7 @@
       - freerdp2-x11
       - smbclient
       - dolphin-nextcloud
-      - dolphin-plugin
+      - dolphin-plugins
       - terminator
       - cifs-utils
       - kwrite
