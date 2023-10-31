@@ -28,7 +28,7 @@
       when: ansible_distribution == 'Ubuntu'
     - include: tasks/ubuntu_oh-my-zsh.yml
       vars:
-        username: "{{ username.stdout }}"
+        username: username.stdout
 #    - include: tasks/w_kde.yml
 #    - include: tasks/w_config-files-st.yml
 #    - include: tasks/w_networkshares.yml
