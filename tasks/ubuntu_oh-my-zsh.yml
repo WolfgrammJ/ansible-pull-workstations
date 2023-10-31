@@ -2,7 +2,7 @@
   debug: var=uname
 
 - name: make ZSH default shell for user
-  become: yes
+  become_user: "root"
   ansible.builtin.user:
     name: "{{ uname }}"
     shell: "/usr/bin/zsh"
