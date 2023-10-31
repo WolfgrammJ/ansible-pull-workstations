@@ -1,6 +1,6 @@
 - name: Debug
   debug:
-    var: ansible_facts["ansible_user_id"]
+    var: ansible_facts['ansible_user_id']
 
 ###############################################################
 # Remmina preparation (Ubuntu)
