@@ -128,6 +128,12 @@
   apt:
     deb: https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
 
+### Vivaldi Browser
+- name: Install Vivaldi Browser
+  become: yes
+  apt:
+    deb: https://downloads.vivaldi.com/stable/vivaldi-stable_6.4.3160.34-1_amd64.deb
+
 ### Netextender: check if installed and register var
 - name: Check if NetExtender is installed
   stat:
