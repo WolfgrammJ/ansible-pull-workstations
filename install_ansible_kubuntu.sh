@@ -5,4 +5,4 @@ sudo apt install software-properties-common
 sudo apt install ansible
 sudo apt install python3-argcomplete
 
-ansible-pull -U https://github.com/WolfgrammJ/ansible-pull.git ubuntu.yml
+ansible-pull -U https://github.com/WolfgrammJ/ansible-pull.git kubuntu.yml
