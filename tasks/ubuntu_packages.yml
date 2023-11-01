@@ -36,6 +36,7 @@
       - curl
       - piper #for mouse configuration
       - gimp
+      - virtualbox
     state: latest
 
 
@@ -73,6 +74,17 @@
     name: syncthing@"ansible.service
   ignore_errors: yes
 
+
+##################################################
+# Configuring "Terminator"
+##################################################
+- name: Configure Terminator
+  ansible.builtin.copy:
+    src: files/.terminator.config
+    dest: /home/{{ username.stdout }}/.config/terminator/config
+    owner: "{{ username.stdout }}"
+#    group: "{{ username }}"
+    backup: yes
 
 ##################################################
 # Configuring "TMUX"
