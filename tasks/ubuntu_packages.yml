@@ -137,17 +137,17 @@
 ###############################################################
 ### VMware Workstation Pro: Installation
 - name: Download VMware Workstation Pro
-  become_user: "{{ username.stdout }}"
+  become: yes
   get_url:
     url: https://www.vmware.com/go/getworkstation-linux
-    dest: ~/VMWare-Workstation-Full.x86_64.bundle
+    dest: /usr/VMWare-Workstation-Full.x86_64.bundle
   #when: not netextender.stat.exists
 
 - name: Install VMware Workstation Pro
   become: yes
   shell: VMWare-Workstation-Full.x86_64.bundle --console
   args:
-    chdir: ~
+    chdir: /usr
     #creates: /usr/bin/netExtenderGui
   #when: not netextender.stat.exists
 
