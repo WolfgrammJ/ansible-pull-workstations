@@ -147,15 +147,17 @@
   get_url:
     url: https://www.vmware.com/go/getworkstation-linux
     dest: /usr/VMWare-Workstation-Full.x86_64.bundle
-  when: not vmwareworkstationpro.stat.exists
+#  when: not vmwareworkstationpro.stat.exists
 
 - name: Install VMware Workstation Pro
   become: yes
-  shell: sh ./VMWare-Workstation-Full.x86_64.bundle --console --deferred-gtk
+  shell: |
+    sh ./VMWare-Workstation-Full.x86_64.bundle --console --deferred-gtk
+    /usr/bin/vmware-modconfig --console --install-all
   args:
     chdir: /usr
-    creates: /usr/share/applications/vmware-workstation.desktop
-  when: not vmwareworkstationpro.stat.exists
+#    creates: /usr/share/applications/vmware-workstation.desktop
+#  when: not vmwareworkstationpro.stat.exists
 
 - name: Delete VMware Workstation Pro installation files
   become: yes
