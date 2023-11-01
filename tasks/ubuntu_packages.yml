@@ -135,6 +135,21 @@
 ###############################################################
 # Install additional software
 ###############################################################
+### VMware Workstation Pro: Installation
+- name: Download VMware Workstation Pro
+  become_user: "{{ username.stdout }}"
+  get_url:
+    url: https://www.vmware.com/go/getworkstation-linux
+    dest: /home/{{ username.stdout }}/VMWare-Workstation-Full.x86_64.bundle
+  #when: not netextender.stat.exists
+
+- name: Install VMware Workstation Pro
+  become: yes
+  shell: VMWare-Workstation-Full.x86_64.bundle --console
+  args:
+    chdir: ~
+    #creates: /usr/bin/netExtenderGui
+  #when: not netextender.stat.exists
 
 ### TeamViewer (Ubuntu)
 - name: Install TeamViewer (Ubuntu)
