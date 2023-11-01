@@ -135,21 +135,33 @@
 ###############################################################
 # Install additional software
 ###############################################################
+### VMware Workstation Pro: check if installed and register var
+- name: Check if VMware Workstation Pro is installed
+  stat:
+    path: /usr/share/applications/vmware-workstation.desktop
+  register: vmwareworkstationpro
+
 ### VMware Workstation Pro: Installation
 - name: Download VMware Workstation Pro
   become: yes
   get_url:
     url: https://www.vmware.com/go/getworkstation-linux
     dest: /usr/VMWare-Workstation-Full.x86_64.bundle
-  #when: not netextender.stat.exists
+  when: not vmwareworkstationpro.stat.exists
 
 - name: Install VMware Workstation Pro
   become: yes
   shell: sh ./VMWare-Workstation-Full.x86_64.bundle --console --deferred-gtk
   args:
     chdir: /usr
-    #creates: /usr/bin/netExtenderGui
-  #when: not netextender.stat.exists
+    creates: /usr/share/applications/vmware-workstation.desktop
+  when: not vmwareworkstationpro.stat.exists
+
+- name: Delete VMware Workstation Pro installation files
+  become: yes
+  ansible.builtin.file:
+    path: /usr/VMWare-Workstation-Full.x86_64.bundle
+    state: absent
 
 ### TeamViewer (Ubuntu)
 - name: Install TeamViewer (Ubuntu)
