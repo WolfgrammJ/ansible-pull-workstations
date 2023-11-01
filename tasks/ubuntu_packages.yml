@@ -140,7 +140,7 @@
   become_user: "{{ username.stdout }}"
   get_url:
     url: https://www.vmware.com/go/getworkstation-linux
-    dest: /home/{{ username.stdout }}/VMWare-Workstation-Full.x86_64.bundle
+    dest: ~/VMWare-Workstation-Full.x86_64.bundle
   #when: not netextender.stat.exists
 
 - name: Install VMware Workstation Pro
