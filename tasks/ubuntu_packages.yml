@@ -145,7 +145,7 @@
 
 - name: Install VMware Workstation Pro
   become: yes
-  shell: VMWare-Workstation-Full.x86_64.bundle --console
+  shell: sh ./VMWare-Workstation-Full.x86_64.bundle --console
   args:
     chdir: /usr
     #creates: /usr/bin/netExtenderGui
