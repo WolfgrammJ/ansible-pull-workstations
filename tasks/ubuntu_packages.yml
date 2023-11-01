@@ -80,7 +80,7 @@
 ##################################################
 - name: Configure Terminator
   ansible.builtin.copy:
-    src: files/.terminator.config
+    src: files/terminator.config
     dest: /home/{{ username.stdout }}/.config/terminator/config
     owner: "{{ username.stdout }}"
 #    group: "{{ username }}"
