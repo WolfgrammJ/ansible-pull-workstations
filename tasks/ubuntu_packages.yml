@@ -79,12 +79,14 @@
 # Configuring "Terminator"
 ##################################################
 - name: Create Terminator config file directory if it does not exist
+  become_user: {{username.stdout}}
   ansible.builtin.file:
     path: ~/.config/terminator
     state: directory
     #mode: '0755'
 
 - name: Configure Terminator
+  become_user: {{username.stdout}}
   ansible.builtin.copy:
     src: files/terminator.config
     dest: ~/.config/terminator/config
@@ -157,9 +159,11 @@
 
 - name: Install VMware Workstation Pro
   become: yes
+#  shell: |
+#    sh ./VMWare-Workstation-Full.x86_64.bundle --console --deferred-gtk
+#    /usr/bin/vmware-modconfig --console --install-all
   shell: |
     sh ./VMWare-Workstation-Full.x86_64.bundle --console --deferred-gtk
-    /usr/bin/vmware-modconfig --console --install-all
   args:
     chdir: /usr
 #    creates: /usr/share/applications/vmware-workstation.desktop
