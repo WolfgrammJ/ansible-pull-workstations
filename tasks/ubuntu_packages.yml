@@ -78,10 +78,16 @@
 ##################################################
 # Configuring "Terminator"
 ##################################################
+- name: Create Terminator config file directory if it does not exist
+  ansible.builtin.file:
+    path: ~/.config/terminator
+    state: directory
+    #mode: '0755'
+
 - name: Configure Terminator
   ansible.builtin.copy:
     src: files/terminator.config
-    dest: /home/{{ username.stdout }}/.config/terminator/config
+    dest: ~/.config/terminator/config
     owner: "{{ username.stdout }}"
 #    group: "{{ username }}"
     backup: yes
