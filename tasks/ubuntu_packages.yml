@@ -37,6 +37,7 @@
       - piper #for mouse configuration
       - gimp
       - virtualbox
+      - filezilla
     state: latest
 
 
