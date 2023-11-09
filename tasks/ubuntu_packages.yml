@@ -38,6 +38,8 @@
       - gimp
       - virtualbox
       - filezilla
+      - openvpn
+      - yubioath-desktop
     state: latest
 
 
