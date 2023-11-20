@@ -26,6 +26,10 @@
 
     - include_tasks: tasks/ubuntu_cron.yml
       when: ansible_distribution == 'Ubuntu'
+    - name: 
+        ansible.builtin.copy:
+          src: files/.install-omz.sh
+          dest: ~/.install-omz.sh
 #    - include_tasks: tasks/ubuntu_oh-my-zsh.yml
 #      vars:
 #        uname: "{{ username.stdout }}"
