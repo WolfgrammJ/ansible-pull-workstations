@@ -29,7 +29,7 @@
     - name: Copy shell script for installing OMZ
       ansible.builtin.copy:
         src: files/.install-omz.sh
-        dest: ~/.install-omz.sh
+        dest: {{ ansible_user_dir }}/.install-omz.sh
 #    - include_tasks: tasks/ubuntu_oh-my-zsh.yml
 #      vars:
 #        uname: "{{ username.stdout }}"
