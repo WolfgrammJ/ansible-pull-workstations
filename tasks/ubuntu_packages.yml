@@ -23,7 +23,6 @@
       - remmina-plugin-www
 #      - remmina-plugin-nx
       - remmina-plugin-kwallet
-      - syncthing
       - default-jre
       - freerdp2-x11
       - smbclient
@@ -31,6 +30,7 @@
       - dolphin-plugins
       - terminator
       - cifs-utils
+      - nfs-common
       - kwrite
       - autofs
       - curl
@@ -56,24 +56,36 @@
     update_cache: yes
     allow_unauthenticated: yes
 
+
+###############################################################
+# Syncthing Installation (Ubuntu)
+# Needs to run after curl is installed
+###############################################################
+- name: Install Syncthing
+  ansible.builtin.package:
+    name:
+      - syncthing
+    state: latest
+
 ##################################################
 # Syncthing: Set up system service
+# Currently deactivated because syncthing will be set up manually per user ("systemctl --user enable syncthing.service")
 ##################################################
-- name: Enabling syncthing service
-  become: yes
-  ansible.builtin.systemd:
-    daemon_reload: yes
-    state: restarted
-    enabled: yes
-    name: syncthing@ansible.service
-  ignore_errors: yes
+#- name: Enabling syncthing service
+#  become: yes
+#  ansible.builtin.systemd:
+#    daemon_reload: yes
+#    state: restarted
+#    enabled: yes
+#    name: syncthing@ansible.service
+#  ignore_errors: yes
 
-- name: Start syncthing service explicitly
-  become: yes
-  ansible.builtin.systemd:
-    state: started
-    name: syncthing@"ansible.service
-  ignore_errors: yes
+#- name: Start syncthing service explicitly
+#  become: yes
+#  ansible.builtin.systemd:
+#    state: started
+#    name: syncthing@ansible.service
+#  ignore_errors: yes
 
 
 ##################################################
