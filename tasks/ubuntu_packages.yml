@@ -115,15 +115,15 @@
 - name: Configure tmux local
   ansible.builtin.copy:
     src: files/.tmux.conf
-    dest: /home/{{ username.stdout }}/.tmux.conf
-    owner: "{{ username.stdout }}"
-#    group: "{{ username }}"
+    dest: "{{ ansible_user_dir }}/.tmux.conf
+    owner: "{{ ansible_user_id }}"
+#    group: "{{ ansible_user_id }}"
     backup: yes
 
 - name: Configure tmux remote
   ansible.builtin.copy:
     src: files/.tmux.remote.conf
-    dest: /home/{{ username.stdout }}/.tmux.remote.conf
+    dest: "{{ ansible_user_dir }}/.tmux.remote.conf"
     owner: "{{ username.stdout }}"
 #    group: "{{ username }}"
     backup: yes
