@@ -116,7 +116,7 @@
   ansible.builtin.copy:
     src: files/.tmux.conf
     dest: "{{ ansible_user_dir }}/.tmux.conf
-    owner: "{{ ansible_user_id }}"
+    owner: {{ ansible_user_id }}
 #    group: "{{ ansible_user_id }}"
     backup: yes
 
