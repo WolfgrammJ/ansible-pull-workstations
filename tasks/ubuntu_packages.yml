@@ -170,7 +170,7 @@
   get_url:
     url: https://www.vmware.com/go/getworkstation-linux
     dest: /usr/VMWare-Workstation-Full.x86_64.bundle
-#  when: not vmwareworkstationpro.stat.exists
+  when: not vmwareworkstationpro.stat.exists
 
 - name: Install VMware Workstation Pro
   become: yes
@@ -182,7 +182,7 @@
   args:
     chdir: /usr
 #    creates: /usr/share/applications/vmware-workstation.desktop
-#  when: not vmwareworkstationpro.stat.exists
+  when: not vmwareworkstationpro.stat.exists
 
 - name: Delete VMware Workstation Pro installation files
   become: yes
