@@ -1,7 +1,7 @@
 - hosts: localhost
 #  vars:
 #     username: ansible_user_id
-  #become: true
+  become: true
   pre_tasks:
     - name: update repositories (Ubuntu)
       apt:
@@ -11,35 +11,25 @@
       when: ansible_distribution == 'Ubuntu'
 
   tasks:
-    - name: get the username running the deploy
-      become: false
-      local_action: command whoami
-      register: username
-    - name: get the home directory of the user, running the deploy
-      become: false
-      local_action: command echo ~"{{ username.stdout }}"
-      register: userdir
-    - name: Debug (display username)
-      debug: var=username.stdout
-    - name: Debug (display user's home directory)
-      debug: var={{ userdir }}
     - include_tasks: tasks/users.yml
       when: ansible_distribution == 'Ubuntu'
     - include_tasks: tasks/ubuntu_settings.yml
       when: ansible_distribution == 'Ubuntu'
-#    - include_tasks: tasks/ubuntu_packages.yml
-#      when: ansible_distribution == 'Ubuntu'
+    - include_tasks: tasks/ubuntu_packages.yml
+      when: ansible_distribution == 'Ubuntu'
 
     - include_tasks: tasks/ubuntu_cron.yml
       when: ansible_distribution == 'Ubuntu'
-    - include_tasks: tasks/ubuntu_oh-my-zsh.yml
-      vars:
-        uname: "{{ ansible_user_id }}"
-        udir: "{{ ansible_user_dir }}"
+    - name: Copy installation script for OMZ to machine
+      builtin.ansible.copy:
+        src: files/.install-omz.sh
+        dest: /usr/.install-omz.sh
+        owner: root
+        group: root
+        mode: '0755'
     - include_tasks: tasks/ubuntu_oh-my-zsh.yml
       vars:
         uname: root
-        udir: /root
 #    - include: tasks/w_kde.yml
 #    - include: tasks/w_config-files-st.yml
 #    - include: tasks/w_networkshares.yml
