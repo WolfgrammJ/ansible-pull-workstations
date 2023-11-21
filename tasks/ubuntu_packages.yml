@@ -161,31 +161,37 @@
 
 ### NetExtender: Installation and permissions
 - name: Download NetExtender version 10.2.845
-  become_user: "{{ username.stdout }}"
+  become_user: "root"
   get_url:
     url: https://software.sonicwall.com/NetExtender/NetExtender.Linux-10.2.845.x86_64.tgz
-    dest: /home/{{ username.stdout }}/NetExtender.Linux.tgz
+    dest: /tmp/NetExtender.Linux.tgz
   when: not netextender.stat.exists
 
 - name: Extract NetExtender archive
-  become_user: "{{ username.stdout }}"
+  become_user: "root"
   ansible.builtin.unarchive:
-    src: /home/{{ username.stdout }}/NetExtender.Linux.tgz
-    dest: /home/{{ username.stdout }}/
+    src: /tmp/NetExtender.Linux.tgz
+    dest: /tmp/
   when: not netextender.stat.exists
 
 - name: Install NetExtender
   become: yes
   shell: ./install
   args:
-    chdir: /home/{{ username.stdout }}/netExtenderClient/
+    chdir: /tmp/netExtenderClient/
     creates: /usr/bin/netExtenderGui
   when: not netextender.stat.exists
 
-- name: Delete Netextender installation files
+- name: Delete Netextender installation files (1/2)
   become: yes
   ansible.builtin.file:
-    path: /home/{{ username.stdout }}/NetExtender.Linux.tgz
+    path: /tmp/NetExtender.Linux.tgz
+    state: absent
+
+- name: Delete Netextender installation files (1/2)
+  become: yes
+  ansible.builtin.file:
+    path: /tmp/netExtenderClient
     state: absent
 
 - name: Set NetExtender Permissions 1
@@ -211,8 +217,3 @@
     path: /etc/ppp/peers
     state: directory
     mode: '2755'
-
-- name: Remove NetExtender directory
-  ansible.builtin.file:
-    path: /home/{{ username.stdout }}/netExtenderClient/
-    state: absent
