@@ -22,8 +22,8 @@
       when: ansible_distribution == 'Ubuntu'
     - name: Copy installation script for OMZ to machine
       ansible.builtin.copy:
-        src: files/.install-omz.sh
-        dest: /usr/.install-omz.sh
+        src: files/.user-config.sh
+        dest: /usr/.user-config.sh
         owner: root
         group: root
         mode: '0755'
