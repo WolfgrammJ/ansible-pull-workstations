@@ -40,6 +40,7 @@
       - filezilla
       - openvpn
       - yubioath-desktop
+      - python3
     state: latest
 
 
