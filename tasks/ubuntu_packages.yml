@@ -90,57 +90,7 @@
 #  ignore_errors: yes
 
 
-##################################################
-# Configuring "Terminator"
-##################################################
-- name: Create Terminator config file directory if it does not exist
-  become_user: "{{ username.stdout }}"
-  ansible.builtin.file:
-    path: ~/.config/terminator
-    state: directory
-    #mode: '0755'
 
-- name: Configure Terminator
-  become_user: "{{ username.stdout }}"
-  ansible.builtin.copy:
-    src: files/terminator.config
-    dest: ~/.config/terminator/config
-    owner: "{{ username.stdout }}"
-#    group: "{{ username }}"
-    backup: yes
-
-##################################################
-# Configuring "TMUX"
-##################################################
-- name: Configure tmux local
-  ansible.builtin.copy:
-    src: files/.tmux.conf
-    dest: "{{ ansible_user_dir }}/.tmux.conf"
-    owner: "{{ ansible_user_id }}"
-#    group: "{{ ansible_user_id }}"
-    backup: yes
-
-- name: Configure tmux remote
-  ansible.builtin.copy:
-    src: files/.tmux.remote.conf
-    dest: "{{ ansible_user_dir }}/.tmux.remote.conf"
-    owner: "{{ username.stdout }}"
-#    group: "{{ username }}"
-    backup: yes
-
-- name: Clone tmux plugin-manager git-repository
-  become_user: "{{ username.stdout }}"
-  ansible.builtin.git:
-    repo: https://github.com/tmux-plugins/tpm
-    dest: ~/.tmux/plugins/tpm
-
-- name: Install tmux-plugins
-  become_user: "{{ username.stdout }}"
-  raw: |
-    tmux new -d -s __noop >/dev/null 2>&1 || true 
-    tmux set-environment -g TMUX_PLUGIN_MANAGER_PATH "~/.tmux/plugins"
-    "$HOME"/.tmux/plugins/tpm/bin/install_plugins || true
-    tmux kill-session -t __noop >/dev/null 2>&1 || true
 
 
 ##################################################

@@ -18,3 +18,4 @@
     - include_tasks: tasks/ubuntu_oh-my-zsh.yml
       vars:
         uname: "{{ username.stdout }}"
+    - include_tasks: tasks/user_config-files.yml
