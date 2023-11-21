@@ -2,13 +2,13 @@
 #  vars:
 #     username: ansible_user_id
   become: false
-  pre_tasks:
-    - name: update repositories (Ubuntu)
-      apt:
-        update_cache: yes
-        allow_unauthenticated: yes
-      changed_when: false
-      when: ansible_distribution == 'Ubuntu'
+#  pre_tasks:
+#    - name: update repositories (Ubuntu)
+#      apt:
+#        update_cache: yes
+#        allow_unauthenticated: yes
+#      changed_when: false
+#      when: ansible_distribution == 'Ubuntu'
 
   tasks:
     - name: get the username running the deploy
