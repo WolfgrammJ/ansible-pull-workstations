@@ -2,10 +2,11 @@
   debug: var=uname
 
 - name: make ZSH default shell for user
-  become_user: "{{ uname }}"
+  become_user: "root"
   ansible.builtin.user:
     name: "{{ uname }}"
     shell: "/usr/bin/zsh"
+  ignore_errors: yes
 
 - name: Check if directory "~/.oh-my-zsh" exists
   become_user: "{{ uname }}"
@@ -44,12 +45,12 @@
     repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
     dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 
-- name: Install requirements for autojump
-  ansible.builtin.package:
-    name:
-      - python3
-    state: present
-  ignore_errors: yes
+#- name: Install requirements for autojump
+#  ansible.builtin.package:
+#    name:
+#      - python3
+#    state: present
+#  ignore_errors: yes
 #
 # The above needs adaption. "ignore_errors" was added bc Ubuntu 22.04 doesn't have a package named "python"
 #
