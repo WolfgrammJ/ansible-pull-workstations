@@ -17,12 +17,12 @@
       register: username
     - name: get the home directory of the user, running the deploy
       become: false
-      local_action: command ~"{{ username.stdout }}"
+      local_action: command echo ~"{{ username.stdout }}"
       register: userdir
-    - name: Debug
+    - name: Debug (display username)
       debug: var=username.stdout
-    - name: Debug (ansible_user_id)
-      debug: var={{ ansible_user_id }}
+    - name: Debug (display user's home directory)
+      debug: var={{ userdir }}
     - include_tasks: tasks/users.yml
       when: ansible_distribution == 'Ubuntu'
     - include_tasks: tasks/ubuntu_settings.yml
