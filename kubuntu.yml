@@ -26,16 +26,18 @@
 
     - include_tasks: tasks/ubuntu_cron.yml
       when: ansible_distribution == 'Ubuntu'
-    - name: Copy shell script for installing OMZ
-      ansible.builtin.copy:
-        src: files/.install-omz.sh
-        dest: "{{ ansible_user_dir }}/.install-omz.sh"
-#    - include_tasks: tasks/ubuntu_oh-my-zsh.yml
-#      vars:
-#        uname: "{{ username.stdout }}"
-#    - include_tasks: tasks/ubuntu_oh-my-zsh.yml
-#      vars:
-#        uname: root
+#    - name: Copy shell script for installing OMZ
+#      ansible.builtin.copy:
+#        src: files/.install-omz.sh
+#        dest: "{{ ansible_user_dir }}/.install-omz.sh"
+    - include_tasks: tasks/ubuntu_oh-my-zsh.yml
+      vars:
+        uname: "{{ ansible_user_id }}"
+        udir: "{{ ansible_user_dir }}"
+    - include_tasks: tasks/ubuntu_oh-my-zsh.yml
+      vars:
+        uname: root
+        udir: /root
 #    - include: tasks/w_kde.yml
 #    - include: tasks/w_config-files-st.yml
 #    - include: tasks/w_networkshares.yml
