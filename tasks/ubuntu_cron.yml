@@ -4,4 +4,4 @@
     name: "ansible provision"
     user: "ansible"
     minute: "10"
-    job: "sudo /usr/bin/ansible-pull -o -U https://github.com/WolfgrammJ/ansible-pull.git kubuntu.yml > /dev/null"
+    job: "sudo /usr/bin/ansible-pull -o -U https://github.com/WolfgrammJ/ansible-pull.git kubuntu.yml --checkout main > /dev/null"
