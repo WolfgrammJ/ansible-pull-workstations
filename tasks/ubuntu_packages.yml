@@ -45,6 +45,28 @@
 
 
 ###############################################################
+# Install Brave browser (Ubuntu)
+# Needs to run after curl is installed
+###############################################################
+- name: Add PGP key and repository for Brave (Ubuntu)
+  become: yes
+  raw: |
+    curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+    echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+
+- name: Update repositories cache (Ubuntu)
+  apt:
+    update_cache: yes
+    allow_unauthenticated: yes
+
+- name: Install Brave package
+  ansible.builtin.package:
+    name:
+      - brave-browser
+    state: latest
+
+
+###############################################################
 # Syncthing preparation (Ubuntu)
 # Needs to run after curl is installed
 ###############################################################
