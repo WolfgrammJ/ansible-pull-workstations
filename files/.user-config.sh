@@ -1,1 +1,1 @@
-ansible-pull -U https://github.com/WolfgrammJ/ansible-pull.git user-config.yml
+ansible-pull -U https://github.com/WolfgrammJ/ansible-pull.git user-config.yml --checkout main

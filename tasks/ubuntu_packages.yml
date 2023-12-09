@@ -41,6 +41,9 @@
       - openvpn
       - yubioath-desktop
       - python3
+      - krename
+      - kdiff3
+      - kdiff3-doc
     state: latest
 
 
