@@ -45,6 +45,9 @@
       - kdiff3
       - kdiff3-doc
       - chromium-browser
+      - krusader
+      - keepassxc
+      - webext-keepassxc-browser
 
     state: latest
 
