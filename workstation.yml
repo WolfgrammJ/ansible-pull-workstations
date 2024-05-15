@@ -11,25 +11,26 @@
       when: ansible_distribution == 'Ubuntu'
 
   tasks:
-    - include_tasks: tasks/users.yml
-      when: ansible_distribution == 'Ubuntu'
-    - include_tasks: tasks/ubuntu_settings.yml
-      when: ansible_distribution == 'Ubuntu'
-    - include_tasks: tasks/ubuntu_packages.yml
-      when: ansible_distribution == 'Ubuntu'
+    include_tasks: tasks/domain-join.yml
+#    - include_tasks: tasks/users.yml
+#      when: ansible_distribution == 'Ubuntu'
+#    - include_tasks: tasks/ubuntu_settings.yml
+#      when: ansible_distribution == 'Ubuntu'
+#    - include_tasks: tasks/ubuntu_packages.yml
+#      when: ansible_distribution == 'Ubuntu'
 
-    - include_tasks: tasks/ubuntu_cron.yml
-      when: ansible_distribution == 'Ubuntu'
-    - name: Copy installation script for OMZ to machine
-      ansible.builtin.copy:
-        src: files/.user-config.sh
-        dest: /usr/.user-config.sh
-        owner: root
-        group: root
-        mode: '0755'
-    - include_tasks: tasks/ubuntu_oh-my-zsh.yml
-      vars:
-        uname: root
+#    - include_tasks: tasks/ubuntu_cron.yml
+#      when: ansible_distribution == 'Ubuntu'
+#    - name: Copy installation script for OMZ to machine
+#      ansible.builtin.copy:
+#        src: files/.user-config.sh
+#        dest: /usr/.user-config.sh
+#        owner: root
+#        group: root
+#        mode: '0755'
+#    - include_tasks: tasks/ubuntu_oh-my-zsh.yml
+#      vars:
+#        uname: root
 #    - include: tasks/w_kde.yml
 #    - include: tasks/w_config-files-st.yml
 #    - include: tasks/w_networkshares.yml
