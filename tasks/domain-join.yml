@@ -4,96 +4,96 @@
     - name: "bind_password"
       prompt: "Password for the Directory user"
       private: yes
+  tasks:
+    - name: Install required packages
+      yum:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - sssd
+        - sssd-tools
+        - realmd
+        - oddjob
+        - oddjob-mkhomedir
+        - libnss-sss
+        - libpam-sss
+        - samba-common
+        - samba-common-bin
+        - adcli
+        - netplan.io
+      register: package_installation
 
-- name: Install required packages
-  yum:
-    name: "{{ item }}"
-    state: present
-  loop:
-    - sssd
-    - sssd-tools
-    - realmd
-    - oddjob
-    - oddjob-mkhomedir
-    - libnss-sss
-    - libpam-sss
-    - samba-common
-    - samba-common-bin
-    - adcli
-    - netplan.io
-  register: package_installation
+    - name: Display status of package installation
+      debug:
+        msg: "{{ item.item }} is successfully installed"
+      loop: "{{ package_installation.results }}"
+      when: item.changed
+      loop_control:
+        label: "{{ item.item }}"
 
-- name: Display status of package installation
-  debug:
-    msg: "{{ item.item }} is successfully installed"
-  loop: "{{ package_installation.results }}"
-  when: item.changed
-  loop_control:
-    label: "{{ item.item }}"
+    - name: Set hostname (FQDN)
+      ansible.builtin.lineinfile:
+        path: /etc/hostname
+        search_string: "{{ inventory_hostname }}"
+        line: "{{ inventory_hostname }}.ds.damantec.org"
 
-- name: Set hostname (FQDN)
-  ansible.builtin.lineinfile:
-    path: /etc/hostname
-    search_string: "{{ inventory_hostname }}"
-    line: "{{ inventory_hostname }}.ds.damantec.org"
+    - name: Add DC to /etc/hosts
+      ansible.builtin.lineinfile:
+        path: /etc/hosts
+        line: 10.10.0.21 dmt-nas-001.ds.damantec.org dmt-nas-001
 
-- name: Add DC to /etc/hosts
-  ansible.builtin.lineinfile:
-    path: /etc/hosts
-    line: 10.10.0.21 dmt-nas-001.ds.damantec.org dmt-nas-001
+    - name: Join system
+      command: /bin/bash -c "echo {{ bind_password }} | realm join --user=Admin-Onboard ds.damantec.org"
+      register: join_output
+      no_log: True
+      ignore_errors: yes
 
-- name: Join system
-  command: /bin/bash -c "echo {{ bind_password }} | realm join --user=Admin-Onboard ds.damantec.org"
-  register: join_output
-  no_log: True
-  ignore_errors: yes
+    - name: Display success message
+      debug:
+        msg: "Join successful!"
+      when: join_output.rc == 0
 
-- name: Display success message
-  debug:
-    msg: "Join successful!"
-  when: join_output.rc == 0
+    - name: Display error message
+      debug:
+        msg: "Join failed or already joined"
+      when: join_output.rc != 0
 
-- name: Display error message
-  debug:
-    msg: "Join failed or already joined"
-  when: join_output.rc != 0
+    - name: Edit SSSD configuration file
+      block:
+    #        - name: Modify access_provider line
+    #          lineinfile:
+    #            path: /etc/sssd/sssd.conf
+    #            regexp: '^access_provider'
+    #            line: 'access_provider = simple'
+    #            state: present
 
-- name: Edit SSSD configuration file
-  block:
-#        - name: Modify access_provider line
-#          lineinfile:
-#            path: /etc/sssd/sssd.conf
-#            regexp: '^access_provider'
-#            line: 'access_provider = simple'
-#            state: present
+    #        - name: Add simple_allow_groups line
+    #          lineinfile:
+    #            path: /etc/sssd/sssd.conf
+    #            regexp: '^simple_allow_groups'
+    #            line: 'simple_allow_groups = Domain Admins, Linux'
+    #            state: present
 
-#        - name: Add simple_allow_groups line
-#          lineinfile:
-#            path: /etc/sssd/sssd.conf
-#            regexp: '^simple_allow_groups'
-#            line: 'simple_allow_groups = Domain Admins, Linux'
-#            state: present
+    #        - name: Add use_fully_qualified_names line
+    #          lineinfile:
+    #            path: /etc/sssd/sssd.conf
+    #            regexp: '^use_fully_qualified_names'
+    #            line: 'use_fully_qualified_names = False'
+    #            state: present
 
-#        - name: Add use_fully_qualified_names line
-#          lineinfile:
-#            path: /etc/sssd/sssd.conf
-#            regexp: '^use_fully_qualified_names'
-#            line: 'use_fully_qualified_names = False'
-#            state: present
+    #        - name: Add ad_gpo_access_control line to SSSD config
+    #          lineinfile:
+    #            path: /etc/sssd/sssd.conf
+    #            regexp: '^ad_gpo_access_control'
+    #            line: 'ad_gpo_access_control = permissive'
+    #            state: present
 
-#        - name: Add ad_gpo_access_control line to SSSD config
-#          lineinfile:
-#            path: /etc/sssd/sssd.conf
-#            regexp: '^ad_gpo_access_control'
-#            line: 'ad_gpo_access_control = permissive'
-#            state: present
+        - name: copy sudoers file "damantec"
+          copy: src=files/sudoers_damantec dest=/etc/sudoers.d/damantec owner=root group=root mode=0440
 
-    - name: copy sudoers file "damantec"
-      copy: src=files/sudoers_damantec dest=/etc/sudoers.d/damantec owner=root group=root mode=0440
-
-- name: Restart the SSSD Service
-  block:
-    - name: Restart SSSD service
-      service:
-        name: sssd
-        state: restarted
+    - name: Restart the SSSD Service
+      block:
+        - name: Restart SSSD service
+          service:
+            name: sssd
+            state: restarted
