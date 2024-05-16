@@ -13,7 +13,7 @@
     - samba-common
     - samba-common-bin
     - adcli
-    - netplan.io
+
   register: package_installation
 
 - name: Display status of package installation
@@ -27,7 +27,7 @@
 - name: Set hostname (FQDN)
   ansible.builtin.replace:
     path: /etc/hostname
-    regexp: '^.*(?<!\.ds\.damantec\.org)$'
+    regexp: '^(.*)(?<!\.ds\.damantec\.org)$'
     replace: '# \1'
 
 - name: Add DC to /etc/hosts
