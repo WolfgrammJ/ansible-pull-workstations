@@ -38,7 +38,7 @@
 - name: Join system
   command: /bin/bash -c "echo {{ bind_password }} | realm join --user=Admin-Onboard ds.damantec.org"
   register: join_output
-  no_log: True
+  #no_log: True
   ignore_errors: yes
 
 - name: Display success message
