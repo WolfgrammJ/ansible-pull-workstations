@@ -25,10 +25,10 @@
     label: "{{ item.item }}"
 
 - name: Set hostname (FQDN)
-  ansible.builtin.lineinfile:
+  ansible.builtin.replace:
     path: /etc/hostname
-    search_string: "{{ inventory_hostname }}"
-    line: "{{ inventory_hostname }}.ds.damantec.org"
+    regexp: '.*(?<!\.ds\.damantec\.org)$'
+    replace: '\1.ds.damantec.org'
 
 - name: Add DC to /etc/hosts
   ansible.builtin.lineinfile:
