@@ -27,7 +27,7 @@
 - name: Set hostname (FQDN)
   ansible.builtin.replace:
     path: /etc/hostname
-    regexp: '^\s*(.*?)(?:\s*.ds.damantec.org)?(?=\s*$)/s'
+    regexp: '^\s*(.*?)(?:\s*.ds.damantec.org)?(?=\s*$)/g'
     replace: '\g<1>.ds.damantec.org'
 
 - name: Add DC to /etc/hosts
