@@ -28,7 +28,7 @@
   ansible.builtin.replace:
     path: /etc/hostname
     regexp: '^\s*(.*?)(?:\s*.ds.damantec.org)?\s*$'
-    replace: '\g<1>'
+    replace: '\g<1>.ds.damantec.org'
 
 - name: Add DC to /etc/hosts
   ansible.builtin.lineinfile:
