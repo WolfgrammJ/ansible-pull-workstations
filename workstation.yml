@@ -1,5 +1,9 @@
 - hosts: localhost
   become: true
+  vars_prompt:
+    - name: "bind_password"
+      prompt: "Password for the Directory user"
+      private: yes
   pre_tasks:
     - name: update repositories (Ubuntu)
       apt:
