@@ -1,6 +1,21 @@
 - hosts: localhost
   become: true
-  
+
+  - name: Conditional Realm Domain Prompt
+#      hosts: all
+#      gather_facts: yes
+    vars_prompt:
+      - name: realm_username
+        prompt: "Enter the realm username"
+        private: no
+        when: not joined_realm
+
+      - name: realm_password
+        prompt: "Enter the realm password"
+        private: yes
+        when: not joined_realm
+
+
   pre_tasks:
     - name: update repositories (Ubuntu)
       apt:
@@ -9,20 +24,6 @@
       changed_when: false
       when: ansible_distribution == 'Ubuntu'
 
-    - name: Conditional Realm Domain Prompt
-#      hosts: all
- #     gather_facts: yes
-
-      vars_prompt:
-        - name: realm_username
-          prompt: "Enter the realm username"
-          private: no
-          when: not joined_realm
-
-        - name: realm_password
-          prompt: "Enter the realm password"
-          private: yes
-          when: not joined_realm
 
 
 
@@ -34,7 +35,7 @@
     - name: Set fact for realm joined status
       set_fact:
         joined_realm: "{{ 'ds.damantec.org' in realm_list.stdout }}"
-        
+
     - include_tasks: tasks/domain-join.yml
       #when: "'ds.damantec.org' not in realm_output.stdout"
 #    - include_tasks: tasks/users.yml
