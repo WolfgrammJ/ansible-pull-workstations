@@ -9,7 +9,7 @@
     - name: "bind_password"
       prompt: "Password for the Directory user"
       private: yes
-  when: "'ds.damantec.org' not in realm_output.stdout"
+#  when: "'ds.damantec.org' not in realm_output.stdout"
 
 - name: Install required packages
   ansible.builtin.package:

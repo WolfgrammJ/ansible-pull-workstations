@@ -1,9 +1,6 @@
 - hosts: localhost
   become: true
-  vars_prompt:
-    - name: "bind_password"
-      prompt: "Password for the Directory user"
-      private: yes
+  
   pre_tasks:
     - name: update repositories (Ubuntu)
       apt:
@@ -12,11 +9,7 @@
       changed_when: false
       when: ansible_distribution == 'Ubuntu'
 
-    - name: Check if host has joined a realm domain
-      command: realm list
-      register: realm_output
-      changed_when: false
-      failed_when: false
+
 
 
   tasks:
