@@ -53,7 +53,7 @@
 
 - name: Enable automatic creation of user's home directory
   become: yes
-  ansible.builtin.command: pam-auth-update --enbable mkhomedir
+  ansible.builtin.command: pam-auth-update --enable mkhomedir
 
 - name: Edit SSSD configuration file
   block:
