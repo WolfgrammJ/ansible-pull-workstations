@@ -59,11 +59,11 @@
   block:
     - name: Add simple_allow_groups line
       community.general.ini_file:
-      path: /etc/sssd/sssd.conf
-      section: domain/ds.damantec.org
-      option: simple_allow_groups
-      value: Domain Admins
-      state: present
+        path: /etc/sssd/sssd.conf
+        section: domain/ds.damantec.org
+        option: simple_allow_groups
+        value: Domain Admins
+        state: present
 
 #        - name: Add use_fully_qualified_names line
 #          lineinfile:
