@@ -125,7 +125,7 @@
         path: /etc/sssd/sssd.conf
         section: domain/ds.damantec.org
         option: use_fully_qualified_names
-        value: False 
+        value: 'False'
 
     - name: Add ad_gpo_access_control line to SSSD config
       community.general.ini_file:
