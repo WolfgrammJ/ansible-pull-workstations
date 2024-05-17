@@ -1,4 +1,16 @@
 - hosts: localhost
+  become: yes
+  tasks:
+    - name: Check if host has joined a realm domain
+      command: realm list
+      register: realm_list
+
+    - name: Set fact for realm joined status
+      set_fact:
+        joined_realm: "{{ 'ds.damantec.org' in realm_list.stdout }}"
+
+
+- hosts: localhost
   become: true
 
   vars_prompt:
@@ -25,13 +37,7 @@
 
 
   tasks:
-    - name: Check if host has joined a realm domain
-      command: realm list
-      register: realm_list
 
-    - name: Set fact for realm joined status
-      set_fact:
-        joined_realm: "{{ 'ds.damantec.org' in realm_list.stdout }}"
 
     - include_tasks: tasks/domain-join.yml
       #when: "'ds.damantec.org' not in realm_output.stdout"
