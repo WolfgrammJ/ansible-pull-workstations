@@ -4,7 +4,7 @@
   changed_when: false
   failed_when: false
 
-- name: Prompt for password for user "admin-onboard"
+- name: Prompt for password for user admin-onboard
   vars_prompt:
     - name: "bind_password"
       prompt: "Password for the Directory user"
