@@ -2,12 +2,12 @@
   become: true
 
   vars_prompt:
-    - name: realm_username
+    - name: "realm_username"
       prompt: "Enter the realm username"
       private: no
       when: not joined_realm
 
-    - name: realm_password
+    - name: "realm_password"
       prompt: "Enter the realm password"
       private: yes
       when: not joined_realm
