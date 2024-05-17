@@ -35,22 +35,77 @@
     path: /etc/hosts
     line: 10.11.0.11 dmt-gau-nas-001.ds.damantec.org dmt-gau-nas-001
 
-- name: Join system
-  command: /bin/bash -c "echo {{ realm_password }} | realm join --user={{ realm_username }} ds.damantec.org"
-  register: join_output
-  #no_log: True
-  ignore_errors: yes
-  when: not joined_realm
 
-- name: Display success message
-  debug:
-    msg: "Join successful!"
-  when: join_output.rc == 0
+################################################
+# ChatGPT Solution for joining
+################################################
 
-- name: Display error message
+- name: Check if host has joined a realm domain
+  command: realm list
+  register: realm_output
+  changed_when: false
+  failed_when: false
+
+- name: Determine if host has not joined the realm
+  set_fact:
+    not_joined_realm: "{{ 'ds.damantec.org' not in realm_output.stdout }}"
+
+- name: Prompt for realm username
+  pause:
+    prompt: "Enter the realm username"
+  register: username_input
+  when: not_joined_realm
+
+- name: Set realm username
+  set_fact:
+    realm_username: "{{ username_input.user_input }}"
+  when: not_joined_realm
+
+- name: Prompt for realm password
+  pause:
+    prompt: "Enter the realm password"
+    private: yes
+  register: password_input
+  when: not_joined_realm
+
+- name: Set realm password
+  set_fact:
+    realm_password: "{{ password_input.user_input }}"
+  when: not_joined_realm
+
+- name: Debug realm_username
   debug:
-    msg: "Join failed or already joined"
-  when: join_output.rc != 0
+    msg: "Realm username: {{ realm_username }}"
+  when: not_joined_realm
+
+- name: Debug realm_password
+  debug:
+    msg: "Realm password: {{ realm_password }}"
+  when: not_joined_realm
+
+- name: Join realm domain
+  command: realm join --user={{ realm_username }} --password={{ realm_password }} ds.damantec.org
+  when: not_joined_realm
+
+
+
+################################################
+#- name: Join system
+#  command: /bin/bash -c "echo {{ realm_password }} | realm join --user={{ realm_username }} ds.damantec.org"
+#  register: join_output
+#  #no_log: True
+#  ignore_errors: yes
+#  when: not joined_realm
+
+#- name: Display success message
+#  debug:
+#    msg: "Join successful!"
+#  when: join_output.rc == 0
+
+#- name: Display error message
+#  debug:
+#    msg: "Join failed or already joined"
+#  when: join_output.rc != 0
 
 - name: Enable automatic creation of user's home directory
   become: yes
