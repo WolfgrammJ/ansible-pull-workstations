@@ -52,8 +52,8 @@
   when: join_output.rc != 0
 
 - name: Enable automatic creation of user's home directory
-  become: True
-  ansible.builtin.shell: pam-auth-update --enbable mkhomedir
+  become: yes
+  ansible.builtin.command: pam-auth-update --enbable mkhomedir
 
 - name: Edit SSSD configuration file
   block:
