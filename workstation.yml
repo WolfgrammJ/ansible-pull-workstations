@@ -5,12 +5,12 @@
     - name: "realm_username"
       prompt: "Enter the realm username"
       private: no
-      when: not joined_realm
+#      when: not joined_realm
 
     - name: "realm_password"
       prompt: "Enter the realm password"
       private: yes
-      when: not joined_realm
+#      when: not joined_realm
 
 
   pre_tasks:
