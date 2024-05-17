@@ -21,7 +21,7 @@
 
   tasks:
     - include_tasks: tasks/domain-join.yml
-      when: "'ds.damantec.org' not in realm_output.stdout"
+      #when: "'ds.damantec.org' not in realm_output.stdout"
 #    - include_tasks: tasks/users.yml
 #      when: ansible_distribution == 'Ubuntu'
 #    - include_tasks: tasks/ubuntu_settings.yml
