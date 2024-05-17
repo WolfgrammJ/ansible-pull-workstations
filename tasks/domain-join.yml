@@ -43,49 +43,22 @@
 - name: Check if host has joined a realm domain
   command: realm list
   register: realm_output
-  changed_when: false
   failed_when: false
 
 - name: Determine if host has not joined the realm
   set_fact:
     not_joined_realm: "{{ 'ds.damantec.org' not in realm_output.stdout }}"
 
-- name: Prompt for realm username
-  pause:
-    prompt: "Enter the realm username"
-  register: username_input
-  when: not_joined_realm
-
-- name: Set realm username
-  set_fact:
-    realm_username: "{{ username_input.user_input }}"
-  when: not_joined_realm
-
-- name: Prompt for realm password
-  pause:
-    prompt: "Enter the realm password"
-    private: yes
-  register: password_input
-  when: not_joined_realm
-
-- name: Set realm password
-  set_fact:
-    realm_password: "{{ password_input.user_input }}"
-  when: not_joined_realm
-
-- name: Debug realm_username
-  debug:
-    msg: "Realm username: {{ realm_username }}"
-  when: not_joined_realm
-
-- name: Debug realm_password
-  debug:
-    msg: "Realm password: {{ realm_password }}"
+- name: Include credential prompt tasks if not joined to realm
+  include_tasks: domain-join_prompt_credentials.yml
   when: not_joined_realm
 
 - name: Join realm domain
-  command: realm join --user={{ realm_username }} --password={{ realm_password }} ds.damantec.org
-  when: not_joined_realm
+  command: realm join --user={{ realm_username }} --password={{ realm_password }} myrealm.com
+  when:
+    - not_joined_realm
+    - realm_username is defined
+    - realm_password is defined
 
 
 
