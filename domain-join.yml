@@ -13,11 +13,11 @@
       private: yes
 
   tasks:
-    - inlcude_tasks: tasks/domain-join/domain-join_01_packages.yml
-    - inlcude_tasks: tasks/domain-join/domain-join_02_hostname.yml
-    - inlcude_tasks: tasks/domain-join/domain-join_03_mkhomedir.yml
-    - inlcude_tasks: tasks/domain-join/domain-join_04_sssd.yml
-    - inlcude_tasks: tasks/domain-join/domain-join_05_sddm.yml
+    - include_tasks: tasks/domain-join/domain-join_01_packages.yml
+    - include_tasks: tasks/domain-join/domain-join_02_hostname.yml
+    - include_tasks: tasks/domain-join/domain-join_03_mkhomedir.yml
+    - include_tasks: tasks/domain-join/domain-join_04_sssd.yml
+    - include_tasks: tasks/domain-join/domain-join_05_sddm.yml
 
     - name: Check if host has joined a realm domain
       command: realm list
