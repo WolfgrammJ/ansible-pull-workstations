@@ -9,10 +9,10 @@
       prompt: "Please press enter"
       private: no
     - name: "realm_username"
-      prompt: "Username for the Directory user"
+      prompt: "Domain Username"
       #private: yes
     - name: "realm_password"
-      prompt: "Password for the Directory user"
+      prompt: "Domain Password"
       private: yes
 
   tasks:
