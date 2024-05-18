@@ -27,13 +27,12 @@
 
     - name: Determine if host has not joined the realm
       set_fact:
-        not_joined_realm: "{{ 'ds.damantec.org' not in realm_output.stdout }}"
+        not_joined_realm: "{{ '{{ realm_domain }}' not in realm_output.stdout }}"
 
     - name: Join realm domain
       command: /bin/bash -c "echo {{ realm_password }} | realm join --user={{ realm_username }} {{ realm_domain }}"
-      #command: realm join --user={{ realm_username }} --password={{ realm_password }} {{ realm_domain }}
       register: join_output
-      #no_log: True
+      no_log: True
       when:
         - not_joined_realm
         - realm_username is defined
