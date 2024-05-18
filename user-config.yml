@@ -15,7 +15,7 @@
       become: false
       local_action: command whoami
       register: username
-    - include_tasks: tasks/ubuntu_oh-my-zsh.yml
+    - include_tasks: tasks/oh-my-zsh.yml
       vars:
         uname: "{{ username.stdout }}"
     - include_tasks: tasks/user_config-files.yml

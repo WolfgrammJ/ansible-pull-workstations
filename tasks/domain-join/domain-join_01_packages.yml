@@ -13,6 +13,7 @@
     - samba-common
     - samba-common-bin
     - adcli
+    - zsh #required since the domain user receives "/bin/zsh" as default shell
 
   register: package_installation
 

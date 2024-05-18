@@ -1,0 +1,17 @@
+- name: Clone git repo "virtual-desktop-bar"
+  become_user: "{{ username }}"
+  ansible.builtin.git:
+    repo: https://github.com/wsdfhjxc/virtual-desktop-bar.git
+    dest: ~/virtual-desktop-bar
+
+- name: Install/update virtual-desktop-bar dependencies (Debian)
+  become: yes
+  shell: yes | sh /home/{{ username }}/virtual-desktop-bar/scripts/install-dependencies-ubuntu.sh
+  when: ansible_facts['os_family'] == 'Debian'
+
+- name: Install/update virtual-desktop-bar
+  become_user: "{{ username }}"
+  shell: ./install-applet.sh
+  args:
+    chdir: ~/virtual-desktop-bar/scripts/
+  when: ansible_facts['os_family'] == 'Debian'

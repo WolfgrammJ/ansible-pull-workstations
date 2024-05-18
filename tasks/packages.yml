@@ -48,6 +48,7 @@
       - krusader
       - keepassxc
       - webext-keepassxc-browser
+      - ncdu
 
     state: latest
 
@@ -75,98 +76,31 @@
 
 
 ###############################################################
-# Install Firefox browser (apt) (Ubuntu)
-###############################################################
-- name: Add Firefox repository into sources list
-  ansible.builtin.apt_repository:
-    repo: ppa:mozillateam/ppa
-    state: present
-
-- name: Set priority for firefox ppa
-  become: yes
-  raw: |
-    echo '
-    Package: *
-    Pin: release o=LP-PPA-mozillateam
-    Pin-Priority: 1001
-    ' | sudo tee /etc/apt/preferences.d/mozilla-firefox
-
-- name: Update firefox automatically
-  become: yes
-  raw: |
-    echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:${distro_codename}";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-firefox
-
-- name: Update repositories cache (Ubuntu)
-  apt:
-    update_cache: yes
-    allow_unauthenticated: yes
-
-- name: Install firefox package
-  ansible.builtin.package:
-    name:
-      - firefox
-    state: latest
-
-###############################################################
 # Syncthing preparation (Ubuntu)
 # Needs to run after curl is installed
 ###############################################################
-- name: Add PGP key and repository for syncthing (Ubuntu)
-  become: yes
-  raw: |
-    curl -o /usr/share/keyrings/syncthing-archive-keyring.gpg https://syncthing.net/release-key.gpg
-    echo "deb [signed-by=/usr/share/keyrings/syncthing-archive-keyring.gpg] https://apt.syncthing.net/ syncthing stable" | sudo tee /etc/apt/sources.list.d/syncthing.list
+#- name: Add PGP key and repository for syncthing (Ubuntu)
+#  become: yes
+#  raw: |
+#    curl -o /usr/share/keyrings/syncthing-archive-keyring.gpg https://syncthing.net/release-key.gpg
+#    echo "deb [signed-by=/usr/share/keyrings/syncthing-archive-keyring.gpg] https://apt.syncthing.net/ syncthing stable" | sudo tee /etc/apt/sources.list.d/syncthing.list
 
-- name: Update repositories cache (Ubuntu)
-  apt:
-    update_cache: yes
-    allow_unauthenticated: yes
+#- name: Update repositories cache (Ubuntu)
+#  apt:
+#    update_cache: yes
+#    allow_unauthenticated: yes
 
 
 ###############################################################
 # Syncthing Installation (Ubuntu)
 # Needs to run after curl is installed
 ###############################################################
-- name: Install Syncthing
-  ansible.builtin.package:
-    name:
-      - syncthing
-    state: latest
+#- name: Install Syncthing
+#  ansible.builtin.package:
+#    name:
+#      - syncthing
+#    state: latest
 
-##################################################
-# Syncthing: Set up system service
-# Currently deactivated because syncthing will be set up manually per user ("systemctl --user enable syncthing.service")
-##################################################
-#- name: Enabling syncthing service
-#  become: yes
-#  ansible.builtin.systemd:
-#    daemon_reload: yes
-#    state: restarted
-#    enabled: yes
-#    name: syncthing@ansible.service
-#  ignore_errors: yes
-
-#- name: Start syncthing service explicitly
-#  become: yes
-#  ansible.builtin.systemd:
-#    state: started
-#    name: syncthing@ansible.service
-#  ignore_errors: yes
-
-
-
-
-
-##################################################
-# Copy Backup-Script for Home Directory
-##################################################
-#- name: Copy backup-home-dir.sh
-#  ansible.builtin.copy:
-#    src: files/backup-home-dir.sh
-#    dest: /home/{{ username.stdout }}/backup-home-dir.sh
-#    owner: "{{ username }}"
-##    group: "{{ username }}"
-#    backup: yes
 
 
 ###############################################################
@@ -204,11 +138,6 @@
     path: /usr/VMWare-Workstation-Full.x86_64.bundle
     state: absent
 
-### TeamViewer (Ubuntu)
-- name: Install TeamViewer (Ubuntu)
-  become: yes
-  apt:
-    deb: https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
 
 ### Vivaldi Browser
 - name: Install Vivaldi Browser

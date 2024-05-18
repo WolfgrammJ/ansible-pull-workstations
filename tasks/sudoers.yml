@@ -1,6 +1,6 @@
 - name: copy sudoers file "damantec"
   copy:
-    src: files/sudoers_damantec
+    src: files/etc/sudoers.d/sudoers_damantec
     dest: /etc/sudoers.d/damantec
     owner: root
     group: root
@@ -9,7 +9,7 @@
 
 - name: copy sudoers_ansible
   copy:
-    src: files/sudoers_ansible
+    src: files/etc/sudoers.d/sudoers_ansible
     dest: /etc/sudoers.d/ansible
     owner: root
     group: root

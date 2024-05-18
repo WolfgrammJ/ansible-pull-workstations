@@ -19,6 +19,13 @@
     option: ad_gpo_access_control
     value: permissive
 
+- name: Add zsh as default shell to SSSD config
+  community.general.ini_file:
+    path: /etc/sssd/sssd.conf
+    section: domain/ds.damantec.org
+    option: default_shell
+    value: /usr/bin/zsh
+
 - name: Restart SSSD service
   ansible.builtin.service:
     name: sssd

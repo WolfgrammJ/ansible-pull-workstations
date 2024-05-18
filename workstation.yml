@@ -1,6 +1,9 @@
 - hosts: localhost
   become: true
 
+  vars:
+    realm_domain: "ds.damantec.org"
+
   pre_tasks:
     - name: update repositories (Ubuntu)
       apt:
@@ -14,9 +17,34 @@
 
   tasks:
 
+    - name: Check if host has joined a realm domain
+      command: realm list
+      register: realm_output
+      failed_when: false
 
-    - include_tasks: tasks/domain-join.yml
-      #when: "'ds.damantec.org' not in realm_output.stdout"
+    - name: Determine if host has not joined the realm
+      set_fact:
+        joined_realm: "{{ realm_domain in realm_output.stdout }}"
+
+    - include_tasks: tasks/domain-join/domain-join_01_packages.yml
+      when: joined_realm
+    - include_tasks: tasks/domain-join/domain-join_02_hostname.yml
+      when: joined_realm
+      - include_tasks: tasks/domain-join/domain-join_03_mkhomedir.yml
+      when: joined_realm
+      - include_tasks: tasks/domain-join/domain-join_04_sssd.yml
+      when: joined_realm
+      - include_tasks: tasks/domain-join/domain-join_05_sddm.yml
+      when: joined_realm
+      - include_tasks: tasks/packages.yml
+      - include_tasks: tasks/users.yml
+      - include_tasks: tasks/sudoers.yml
+      - include_tasks: tasks/cron.yml
+      - include_tasks: tasks/general-settings.yml
+      - include_tasks: tasks/kde.yml
+      - include_tasks: tasks/autofs.yml
+
+
 #    - include_tasks: tasks/users.yml
 #      when: ansible_distribution == 'Ubuntu'
 #    - include_tasks: tasks/ubuntu_settings.yml
