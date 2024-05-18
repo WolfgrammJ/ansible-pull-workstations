@@ -32,7 +32,7 @@
     - name: Join realm domain
       command: realm join --user={{ realm_username }} --password={{ realm_password }} {{ realm_domain }}
       register: join_output
-      no_log: True
+      #no_log: True
       when:
         - not_joined_realm
         - realm_username is defined
