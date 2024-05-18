@@ -55,15 +55,6 @@
 
     - include_tasks: tasks/domain-join/domain-join_04_sssd.yml
     - include_tasks: tasks/domain-join/domain-join_05_sddm.yml
-###########################################################################
-
-#  tasks:
-#    - name: Join system
-#      command: /bin/bash -c "echo {{ realm_password }} | realm join --user={{ realm_username }} ds.damantec.org"
-#      register: join_output
-#      #no_log: True
-#      ignore_errors: yes
-#      when: not joined_realm
 
 
 

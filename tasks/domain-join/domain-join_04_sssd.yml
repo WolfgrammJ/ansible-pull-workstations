@@ -3,7 +3,7 @@
     path: /etc/sssd/sssd.conf
     section: domain/ds.damantec.org
     option: ad_access_filter
-    value: "(&(objectClass=user)(memberOf=CN=Domain Admins,CN=Users,DC=ds,DC=damantec,DC=org))"
+    value: "(&(objectClass=user)(memberOf=CN=Domain Users,CN=Users,DC=ds,DC=damantec,DC=org))"
 
 - name: Add use_fully_qualified_names line
   community.general.ini_file:
