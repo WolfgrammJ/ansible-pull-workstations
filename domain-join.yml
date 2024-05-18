@@ -42,7 +42,9 @@
     - name: Display success message
       debug:
         msg: "Join successful!"
-      when: join_output.rc == 0
+      when: 
+        - not_joined_realm
+        - join_output.rc == 0
 
     - name: Display error message
       debug:
