@@ -49,7 +49,9 @@
     - name: Display error message
       debug:
         msg: "Join failed or already joined"
-      when: join_output.rc != 0
+      when: 
+        - not_joined_realm
+        - join_output.rc != 0
 
     - include_tasks: tasks/domain-join/domain-join_04_sssd.yml
     - include_tasks: tasks/domain-join/domain-join_05_sddm.yml
