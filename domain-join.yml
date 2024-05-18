@@ -16,8 +16,6 @@
     - include_tasks: tasks/domain-join/domain-join_01_packages.yml
     - include_tasks: tasks/domain-join/domain-join_02_hostname.yml
     - include_tasks: tasks/domain-join/domain-join_03_mkhomedir.yml
-    - include_tasks: tasks/domain-join/domain-join_04_sssd.yml
-    - include_tasks: tasks/domain-join/domain-join_05_sddm.yml
 
     - name: Check if host has joined a realm domain
       command: realm list
@@ -50,6 +48,9 @@
       debug:
         msg: "Join failed or already joined"
       when: join_output.rc != 0
+
+    - include_tasks: tasks/domain-join/domain-join_04_sssd.yml
+    - include_tasks: tasks/domain-join/domain-join_05_sddm.yml
 ###########################################################################
 
 #  tasks:
