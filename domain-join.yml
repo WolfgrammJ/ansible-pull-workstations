@@ -10,7 +10,7 @@
       private: no
     - name: "realm_username"
       prompt: "Username for the Directory user"
-      private: yes
+      #private: yes
     - name: "realm_password"
       prompt: "Password for the Directory user"
       private: yes
