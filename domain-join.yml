@@ -27,7 +27,7 @@
 
     - name: Determine if host has not joined the realm
       set_fact:
-        not_joined_realm: "{{ '{{ realm_domain }}' not in realm_output.stdout }}"
+        not_joined_realm: "{{ realm_domain not in realm_output.stdout }}"
 
     - name: Join realm domain
       command: /bin/bash -c "echo {{ realm_password }} | realm join --user={{ realm_username }} {{ realm_domain }}"
