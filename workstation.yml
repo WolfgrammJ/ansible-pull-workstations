@@ -30,19 +30,19 @@
       when: joined_realm
     - include_tasks: tasks/domain-join/domain-join_02_hostname.yml
       when: joined_realm
-      - include_tasks: tasks/domain-join/domain-join_03_mkhomedir.yml
+    - include_tasks: tasks/domain-join/domain-join_03_mkhomedir.yml
       when: joined_realm
-      - include_tasks: tasks/domain-join/domain-join_04_sssd.yml
+    - include_tasks: tasks/domain-join/domain-join_04_sssd.yml
       when: joined_realm
-      - include_tasks: tasks/domain-join/domain-join_05_sddm.yml
+    - include_tasks: tasks/domain-join/domain-join_05_sddm.yml
       when: joined_realm
-      - include_tasks: tasks/packages.yml
-      - include_tasks: tasks/users.yml
-      - include_tasks: tasks/sudoers.yml
-      - include_tasks: tasks/cron.yml
-      - include_tasks: tasks/general-settings.yml
-      - include_tasks: tasks/kde.yml
-      - include_tasks: tasks/autofs.yml
+    - include_tasks: tasks/packages.yml
+    - include_tasks: tasks/users.yml
+    - include_tasks: tasks/sudoers.yml
+    - include_tasks: tasks/cron.yml
+    - include_tasks: tasks/general-settings.yml
+    - include_tasks: tasks/kde.yml
+    - include_tasks: tasks/autofs.yml
 
 
 #    - include_tasks: tasks/users.yml
