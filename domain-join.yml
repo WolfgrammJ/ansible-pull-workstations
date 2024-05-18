@@ -5,7 +5,7 @@
     realm_domain: "ds.damantec.org"
 
   vars_prompt:
-    - name: "realm_username
+    - name: "realm_username"
       prompt: "Username for the Directory user"
       private: no
     - name: "realm_password"
