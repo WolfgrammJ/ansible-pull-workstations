@@ -20,6 +20,6 @@
     value: permissive
 
 - name: Restart SSSD service
-    ansible.builtin.service:
-      name: sssd
-      state: restarted
+  ansible.builtin.service:
+    name: sssd
+    state: restarted
