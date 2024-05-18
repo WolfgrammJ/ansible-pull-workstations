@@ -1,0 +1,70 @@
+- hosts: localhost
+  become: true
+
+  vars:
+    realm_domain: "ds.damantec.org"
+
+  vars_prompt:
+    - name: "realm_username
+      prompt: "Username for the Directory user"
+      private: no
+    - name: "realm_password"
+      prompt: "Password for the Directory user"
+      private: yes
+
+  tasks:
+    - inlcude_tasks: tasks/domain-join/domain-join_01_packages.yml
+    - inlcude_tasks: tasks/domain-join/domain-join_02_hostname.yml
+    - inlcude_tasks: tasks/domain-join/domain-join_03_mkhomedir.yml
+    - inlcude_tasks: tasks/domain-join/domain-join_04_sssd.yml
+    - inlcude_tasks: tasks/domain-join/domain-join_05_sddm.yml
+
+    - name: Check if host has joined a realm domain
+      command: realm list
+      register: realm_output
+      failed_when: false
+
+    - name: Determine if host has not joined the realm
+      set_fact:
+        not_joined_realm: "{{ 'ds.damantec.org' not in realm_output.stdout }}"
+
+    - name: Include credential prompt tasks if not joined to realm
+      include_tasks: domain-join_prompt-credentials.yml
+      when: not_joined_realm
+
+    - name: Join realm domain
+      command: realm join --user={{ realm_username }} --password={{ realm_password }} {{ realm_domain }}
+      register: join_output
+      no_log: True
+      when:
+        - not_joined_realm
+        - realm_username is defined
+        - realm_password is defined
+
+    - name: Display success message
+      debug:
+        msg: "Join successful!"
+      when: join_output.rc == 0
+
+    - name: Display error message
+      debug:
+        msg: "Join failed or already joined"
+      when: join_output.rc != 0
+###########################################################################
+
+#  tasks:
+#    - name: Join system
+#      command: /bin/bash -c "echo {{ realm_password }} | realm join --user={{ realm_username }} ds.damantec.org"
+#      register: join_output
+#      #no_log: True
+#      ignore_errors: yes
+#      when: not joined_realm
+
+
+
+
+
+
+
+
+

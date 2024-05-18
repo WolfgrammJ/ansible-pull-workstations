@@ -1,0 +1,10 @@
+- name: Set hostname (FQDN)
+  ansible.builtin.replace:
+    path: /etc/hostname
+    regexp: '^\s*([^\s].*?)(?:\s*.ds.damantec.org)?(?=\s*$)'
+    replace: '\g<1>.ds.damantec.org'
+
+- name: Add DC to /etc/hosts
+  ansible.builtin.lineinfile:
+    path: /etc/hosts
+    line: 10.11.0.11 dmt-gau-nas-001.ds.damantec.org dmt-gau-nas-001
