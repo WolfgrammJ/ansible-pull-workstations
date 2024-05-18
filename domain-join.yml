@@ -30,7 +30,8 @@
         not_joined_realm: "{{ 'ds.damantec.org' not in realm_output.stdout }}"
 
     - name: Join realm domain
-      command: realm join --user={{ realm_username }} --password={{ realm_password }} {{ realm_domain }}
+      command: /bin/bash -c "echo {{ realm_password }} | realm join --user={{ realm_username }} {{ realm_domain }}"
+      #command: realm join --user={{ realm_username }} --password={{ realm_password }} {{ realm_domain }}
       register: join_output
       #no_log: True
       when:
