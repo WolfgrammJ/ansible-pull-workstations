@@ -119,9 +119,12 @@
     url: https://www.vmware.com/go/getworkstation-linux
     dest: /usr/VMWare-Workstation-Full.x86_64.bundle
   register: vmware_download
+  ignore_errors: true
+  when: not vmwareworkstationpro.stat.exists
+
+- name: Debug Message VMWare
   debug:
     msg: {{ vmware_download }}
-  when: not vmwareworkstationpro.stat.exists
 
 - name: Install VMware Workstation Pro
   become: yes
