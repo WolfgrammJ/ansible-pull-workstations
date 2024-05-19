@@ -138,14 +138,14 @@
 #    creates: /usr/share/applications/vmware-workstation.desktop
   when: 
     - not vmwareworkstationpro.stat.exists
-    - vmware_download.msg|changed
+    - vmware_download.status_code == 200
 
 - name: Delete VMware Workstation Pro installation files
   become: yes
   ansible.builtin.file:
     path: /usr/VMWare-Workstation-Full.x86_64.bundle
     state: absent
-  when: vmware_download.msg|changed
+  when: vmware_download.status_code == 200
 
 
 ### Vivaldi Browser
