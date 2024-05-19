@@ -124,7 +124,7 @@
 
 - name: Debug Message VMWare
   debug:
-    msg: "{{ vmware_download }}"
+    msg: "{{ vmware_download.status_code }}"
 
 - name: Install VMware Workstation Pro
   become: yes
