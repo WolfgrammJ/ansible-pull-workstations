@@ -124,7 +124,7 @@
 
 - name: Debug Message VMWare
   debug:
-    msg: "{{ vmware_download }}"
+    msg: "{{ vmware_download.rc }}"
 
 - name: Install VMware Workstation Pro
   become: yes
