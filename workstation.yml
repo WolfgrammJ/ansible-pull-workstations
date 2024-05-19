@@ -41,7 +41,6 @@
     - include_tasks: tasks/sudoers.yml
     - include_tasks: tasks/cron.yml
     - include_tasks: tasks/general-settings.yml
-    - include_tasks: tasks/kde.yml
     - include_tasks: tasks/autofs.yml
 
 
