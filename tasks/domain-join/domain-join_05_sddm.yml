@@ -3,14 +3,14 @@
     path: /etc/sddm.conf
     section: Users
     option: MinimumUid
-    value: '0'
+    value: '60513'
 
 - name: Add MaximumUid line
   community.general.ini_file:
     path: /etc/sddm.conf
     section: Users
     option: MaximumUid
-    value: '0'
+    value: '60513'
 
 - name: Add RememberLastUser line
   community.general.ini_file:

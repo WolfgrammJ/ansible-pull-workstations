@@ -19,3 +19,4 @@
       vars:
         uname: "{{ username.stdout }}"
     - include_tasks: tasks/user_config-files.yml
+    - include_tasks: tasks/kde.yml
