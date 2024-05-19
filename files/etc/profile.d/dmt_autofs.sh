@@ -85,11 +85,11 @@ fi
 # create template "$HOME/.smbcredentials_ucs", if file does not exist
 if [ ! -f ~/.smbcredentials_ucs ]; then
   # Move file to final destination
-  touch ~/.smbcredentials_ucs
-  echo "username=$USER" >> ~/.smbcredentials_ucs
-  echo "password=" >> ~/.smbcredentials_ucs
-  echo "domain=ucs.damantec.org" >> ~/.smbcredentials_ucs
-  chmod 600 ~/.smbcredentials_ucs
+  touch ~/.smbcredentials_ds
+  echo "username=$USER" >> ~/.smbcredentials_ds
+  echo "password=" >> ~/.smbcredentials_ds
+  echo "domain=ds.damantec.org" >> ~/.smbcredentials_ds
+  chmod 600 ~/.smbcredentials_ds
 fi
 
 # check if map file was created, then move it to the final destination
