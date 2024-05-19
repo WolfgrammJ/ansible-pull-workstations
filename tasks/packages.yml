@@ -124,7 +124,7 @@
 
 - name: Debug Message VMWare
   debug:
-    msg: "{{ vmware_download.msg.failed }}"
+    msg: "{{ vmware_download }}"
 
 - name: Install VMware Workstation Pro
   become: yes
@@ -136,13 +136,16 @@
   args:
     chdir: /usr
 #    creates: /usr/share/applications/vmware-workstation.desktop
-  when: not vmwareworkstationpro.stat.exists
+  when: 
+    - not vmwareworkstationpro.stat.exists
+    - vmware_download|changed
 
 - name: Delete VMware Workstation Pro installation files
   become: yes
   ansible.builtin.file:
     path: /usr/VMWare-Workstation-Full.x86_64.bundle
     state: absent
+  when: vmware_download|changed
 
 
 ### Vivaldi Browser
