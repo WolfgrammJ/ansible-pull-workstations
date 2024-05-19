@@ -3,4 +3,4 @@
     name: "ansible provision"
     user: "ansible"
     minute: "10"
-    job: "sudo /usr/bin/ansible-pull -o -U https://github.com/WolfgrammJ/ansible-pull-workstations.git workstation.yml --checkout main > /dev/null"
+    job: "sudo /usr/bin/ansible-pull -o -U https://github.com/WolfgrammJ/ansible-pull-workstations.git workstation.yml --checkout main > /var/tmp/ansible-pull_background.log"
